@@ -2,6 +2,7 @@
 import { getCollection, render } from 'astro:content';
 import { execSync } from 'node:child_process';
 import { statSync } from 'node:fs';
+import { join } from 'node:path';
 import Base from '../layouts/Base.astro';
 
 const [entry] = await getCollection('now');
@@ -15,7 +16,7 @@ try {
 } catch { /* git 없음 */ }
 if (!updated) {
   try {
-    updated = statSync(new URL(`../content/now/now.md`, import.meta.url)).mtime.toISOString().slice(0, 10);
+    updated = statSync(join(process.cwd(), nowPath)).mtime.toISOString().slice(0, 10);
   } catch { /* 파일 없음 */ }
 }
 ---
