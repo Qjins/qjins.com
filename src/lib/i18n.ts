@@ -29,8 +29,8 @@ const dict = {
   nowDesc: { ko: '요즘 하는 일', en: 'What I am up to now' },
   aboutDesc: { ko: '만드는 사람 소개', en: 'About the person behind the studio' },
   aboutTeaser: {
-    ko: '데이터베이스 구축 현장에서 4년, 지금은 University of Sheffield에서 MSc Data Science 과정 중.',
-    en: 'Four years building databases in the field; now an MSc Data Science student at the University of Sheffield.',
+    ko: '수백만 건의 도서관 데이터를 정리하던 개발자, 지금은 영국 철도가 왜 늦는지 데이터로 따져보고 있습니다.',
+    en: 'Four years taming millions of library records; now digging into why UK trains run late.',
   },
   aboutMore: { ko: '자세한 소개', en: 'more about me' },
   blogDesc: {
