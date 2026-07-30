@@ -27,6 +27,14 @@ const dict = {
     en: 'Short notes. Debugging logs, library gotchas, three-line memos.',
   },
   nowDesc: { ko: '요즘 하는 일', en: 'What I am up to now' },
+  blogDesc: {
+    ko: '티스토리(괴발일기)에 쓰는 글. 제목을 누르면 원문으로 이동합니다.',
+    en: 'Posts from my Tistory blog, written in Korean. Titles link to the original.',
+  },
+  blogFail: {
+    ko: '목록을 불러오지 못했습니다. 티스토리에서 직접 볼 수 있습니다:',
+    en: "Couldn't load the feed. You can read directly on Tistory:",
+  },
   lastUpdated: { ko: '마지막 수정', en: 'last updated' },
   pulseTitle: { ko: '오늘의 펄스', en: "Today's pulse" },
   pulseNoSignal: { ko: 'NO SIGNAL · pulse.json 없음', en: 'NO SIGNAL · missing pulse.json' },

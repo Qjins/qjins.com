@@ -45,6 +45,13 @@ What didn't work / How it turned out` 네 섹션. 검증: `src/lib/remark-works-
 `/now` 페이지는 `src/content/now/ko.md`(영어는 `en.md`)를 수정하면 되고,
 마지막 수정 날짜는 git 이력에서 자동으로 읽습니다.
 
+## 블로그 탭
+
+`/blog` 는 티스토리(qjin.tistory.com) RSS를 **빌드 타임에** 읽어 목록을 만든다
+(`src/lib/blog.ts`). 글은 티스토리에 계속 쓰면 되고, 사이트가 펄스 커밋으로
+매일 리빌드되므로 새 글은 다음날 자동 반영된다. RSS가 죽어도 빌드는 통과한다.
+티스토리 관리 > 블로그 > "RSS 공개 글 수"를 50으로 올리면 목록이 최대로 잡힌다.
+
 ## 서비스 목록에 항목 추가하는 법
 
 `src/config/services.ts` 의 배열에 항목 하나를 추가하면 홈에 카드가 생깁니다.

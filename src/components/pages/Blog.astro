@@ -1,0 +1,43 @@
+---
+import Base from '../../layouts/Base.astro';
+import { loadBlog, BLOG_URL } from '../../lib/blog';
+import { t, type Lang } from '../../lib/i18n';
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const { ok, posts } = await loadBlog();
+---
+<Base lang={lang} title="blog" description={t(lang, 'blogDesc')}>
+  <main class="wrap">
+    <h1>blog</h1>
+    <p class="meta">{t(lang, 'blogDesc')}</p>
+    {!ok ? (
+      <p class="empty">{t(lang, 'blogFail')} <a href={BLOG_URL}>qjin.tistory.com</a></p>
+    ) : (
+      <ul class="rows">
+        {posts.map((p) => (
+          <li>
+            <span class="mono meta">{p.date}</span>
+            <div>
+              <a href={p.link} rel="noopener">{p.title} ↗</a>
+              {p.excerpt && <p class="summary">{p.excerpt}…</p>}
+            </div>
+          </li>
+        ))}
+      </ul>
+    )}
+    <p class="mono meta source">
+      <a href={BLOG_URL} rel="noopener">qjin.tistory.com ↗</a>
+    </p>
+  </main>
+</Base>
+
+<style>
+  h1 { margin-bottom: 0.25rem; }
+  .rows { margin-top: 2rem; }
+  .rows li { align-items: flex-start; padding: 0.9rem 0; }
+  .rows .mono { flex-shrink: 0; margin-top: 0.2rem; }
+  .summary { margin: 0.15rem 0 0; color: var(--muted); font-size: 0.95rem; }
+  .empty { color: var(--muted); border: 1px dashed var(--line); border-radius: 6px; padding: 1rem 1.25rem; margin-top: 2rem; }
+  .source { margin-top: 2.5rem; }
+</style>

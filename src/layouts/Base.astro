@@ -10,7 +10,7 @@ import { t, localePath, switchPath, type Lang } from '../lib/i18n';
 interface Props { title?: string; description?: string; lang?: Lang }
 const { title, lang = 'ko', description = t(lang, 'siteDesc') } = Astro.props;
 const pageTitle = title ? `${title} · qjins` : t(lang, 'siteTitle');
-const nav = ['works', 'notes', 'now'] as const;
+const nav = ['works', 'notes', 'blog', 'now'] as const;
 const path = Astro.url.pathname;
 const koPath = lang === 'ko' ? path : switchPath(path);
 const enPath = lang === 'en' ? path : switchPath(path);
