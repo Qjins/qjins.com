@@ -27,9 +27,10 @@ const enPath = lang === 'en' ? path : switchPath(path);
     <link rel="alternate" hreflang="ko" href={new URL(koPath, Astro.site)} />
     <link rel="alternate" hreflang="en" href={new URL(enPath, Astro.site)} />
     <!--
-      Cloudflare Web Analytics (쿠키 없음):
-      Cloudflare 대시보드 > Web Analytics에서 사이트 등록 후 아래 주석을 풀고 토큰을 넣으세요.
-      <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "YOUR_TOKEN"}'></script>
+      Cloudflare Web Analytics (쿠키 없음): 자동 주입 사용 중.
+      대시보드 > Web Analytics > qjins.com이 RUM "Enable"(auto-inject)이라
+      엣지에서 beacon이 자동 삽입된다. 여기에 수동 스니펫을 추가하면
+      이중 집계되니 넣지 말 것. Cloudflare 밖으로 이전할 때만 수동 설치 필요.
     -->
   </head>
   <body>

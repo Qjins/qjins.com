@@ -78,8 +78,9 @@ What didn't work / How it turned out` 네 섹션. 검증: `src/lib/remark-works-
 구형 **Pages** 경로로 만들 경우: Framework preset **Astro**,
 build `npm run build`, output `dist`. (이때 wrangler.jsonc는 무시됨)
 
-Web Analytics(쿠키 없음)를 켜려면 대시보드에서 사이트 등록 후
-`src/layouts/Base.astro` 의 주석 처리된 beacon 스크립트에 토큰을 넣으세요.
+Web Analytics(쿠키 없음)는 **자동 주입**으로 켜져 있다
+(대시보드 > Web Analytics > qjins.com > RUM "Enable").
+HTML에 수동 스니펫을 추가하면 이중 집계되니 넣지 말 것.
 
 ## 커스텀 도메인 연결 절차
 
