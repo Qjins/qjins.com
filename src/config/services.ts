@@ -13,6 +13,8 @@ export interface Service {
   name: string;
   description: { ko: string; en: string };
   url: string;
+  /** works 슬러그 — 있으면 카드가 서비스 대신 works 상세로 연결된다 */
+  work?: string;
   zone: Zone;
   status: ServiceStatus;
 }
@@ -25,6 +27,7 @@ export const services: Service[] = [
       en: 'Web-based remote access platform — manage machines and control their screens from the browser',
     },
     url: 'https://qra.qjins.com',
+    work: 'qra',
     zone: 'app',
     status: 'live',
   },
