@@ -11,10 +11,9 @@ const data = {
   ko: {
     hello: '안녕하세요, 데이터로 뭔가 만드는 <strong class="name">Qjin</strong>입니다.',
     sub: '영국에서 데이터 사이언스를 공부하면서, 틈틈이 이것저것 만듭니다.',
-    interest: '요즘은 공공데이터와 AI로 교통·도시 문제를 푸는 쪽에 관심이 있습니다.',
     education: [
       { school: 'University of Sheffield', degree: 'MSc Data Science', period: '2025 –' },
-      { school: '한국공학대학교', degree: '컴퓨터전자공학 학사 · 일학습병행 — 학업과 실무 4년 병행', period: '2020 – 2024' },
+      { school: '한국공학대학교', degree: '컴퓨터전자공학 학사 · 일학습병행', period: '2020 – 2024' },
     ],
     company: 'MetaSysnet',
     role: 'Database Division Manager · Seoul',
@@ -51,10 +50,9 @@ const data = {
   en: {
     hello: 'Hi, I\'m <strong class="name">Qjin</strong> — I make things with data.',
     sub: "I'm studying data science in the UK and building things on the side.",
-    interest: "Lately I'm drawn to solving transport and urban problems with public data and AI.",
     education: [
       { school: 'University of Sheffield', degree: 'MSc Data Science', period: '2025 –' },
-      { school: 'Tech University of Korea', degree: 'BSc Computer and Electronics Engineering · work-study programme, four years in industry alongside', period: '2020 – 2024' },
+      { school: 'Tech University of Korea', degree: 'BSc Computer and Electronics Engineering · work-study programme', period: '2020 – 2024' },
     ],
     company: 'MetaSysnet',
     role: 'Database Division Manager · Seoul',
@@ -95,7 +93,6 @@ const data = {
     <h1>about</h1>
     <p class="hello" set:html={data.hello} />
     <p class="sub">{data.sub}</p>
-    <p class="sub">{data.interest}</p>
 
     <h2 class="label"><span class="ico" set:html={icons.education} /> education</h2>
     <ul class="rows">
