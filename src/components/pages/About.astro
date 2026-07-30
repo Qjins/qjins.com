@@ -1,25 +1,163 @@
 ---
-import { getCollection, render } from 'astro:content';
 import Base from '../../layouts/Base.astro';
 import { t, type Lang } from '../../lib/i18n';
 
 interface Props { lang: Lang }
 const { lang } = Astro.props;
+const p = (path: string) => (lang === 'en' ? `/en${path}` : path);
 
-const entries = await getCollection('about');
-const entry = entries.find((e) => e.id === lang) ?? entries.find((e) => e.id === 'ko') ?? entries[0];
-const { Content } = await render(entry);
+const data = {
+  ko: {
+    hello: '안녕하세요, 데이터로 뭔가 만드는 Qjin입니다.',
+    sub: '영국에서 데이터 사이언스를 공부하면서, 틈틈이 이것저것 만듭니다.',
+    education: [
+      { school: 'University of Sheffield', degree: 'MSc Data Science · 학위논문: 영국 철도 지연 패턴', period: '2025 –' },
+      { school: '한국공학대학교', degree: '컴퓨터전자공학 학사', period: '2020 – 2024' },
+    ],
+    company: 'MetaSysnet',
+    role: 'Database Division Manager · Seoul',
+    period: '2020.01 – 2024.02',
+    summary: '국가 기관 데이터 구축 프로젝트에서 데이터 파이프라인과 현장 도구를 개발. 대규모 비정형 데이터 정리, 사업 계획 수립, 팀 운영.',
+    workProjects: [
+      { name: 'DAMP', tech: 'C#', desc: '미술 기록물 디지털화·보존 프로젝트 관리 프로그램. 데이터 정제·배포·검수, 관리자 통계, 실시간 관리' },
+      { name: 'KolisMods', tech: 'Python', desc: '국립중앙도서관 국가전거파일 구축. MODS 데이터 수집, 필요한 필드 추출·변환' },
+      { name: 'LMM', tech: 'Python · Qt', desc: '국회도서관 문서 DB 구축. 메타데이터 검색, 정확성 자동 검증, CSV·Excel 입출력' },
+    ],
+    activity: 'AIS Lab 멤버 · 한국컴퓨터정보학회 동계학술대회 참가 · 2023.11 – 2024.01',
+    skills: [
+      { name: 'Python', note: '메타데이터 도구, 자동화' },
+      { name: 'R', note: '통계 분석 · 시각화' },
+      { name: 'SQL · Database', note: '서지 DB 구축 · 운영' },
+      { name: 'C# · Qt', note: '현장용 데스크톱 도구' },
+      { name: 'TypeScript · Web', note: 'Astro, Next.js' },
+      { name: 'Tools', note: 'Git · GitHub Actions · Cloudflare' },
+    ],
+    projects: [
+      { name: 'QRA', desc: '웹 기반 원격 제어 플랫폼', href: '/works/qra', status: 'live' },
+      { name: '영국 철도 회복 분석', desc: '코로나 이후 회복의 지역 불균형', href: '/works/uk-rail-recovery', status: 'archived' },
+      { name: '철도 지연 학위논문', desc: '진행 중', href: '/works/rail-delay-dissertation', status: 'wip' },
+    ],
+    worksNote: '자세한 기록은',
+  },
+  en: {
+    hello: "Hi, I'm Qjin — I make things with data.",
+    sub: "I'm studying data science in the UK and building things on the side.",
+    education: [
+      { school: 'University of Sheffield', degree: 'MSc Data Science · dissertation on UK rail delay patterns', period: '2025 –' },
+      { school: 'Tech University of Korea', degree: 'BSc Computer and Electronics Engineering', period: '2020 – 2024' },
+    ],
+    company: 'MetaSysnet',
+    role: 'Database Division Manager · Seoul',
+    period: 'Jan 2020 – Feb 2024',
+    summary: 'Built data pipelines and field tools for national data construction projects. Large-scale unstructured data, business planning, team management.',
+    workProjects: [
+      { name: 'DAMP', tech: 'C#', desc: 'Management program for an art-records digitisation project — data refinement, distribution, inspection, admin statistics, real-time oversight' },
+      { name: 'KolisMods', tech: 'Python', desc: 'National Authority File project, National Library of Korea — collects MODS data, extracts and converts required fields' },
+      { name: 'LMM', tech: 'Python · Qt', desc: 'Document DB project, National Assembly Library — metadata search, automatic verification, CSV/Excel import·export' },
+    ],
+    activity: 'AIS Lab member · Korea Society of Computer and Information winter conference · Nov 2023 – Jan 2024',
+    skills: [
+      { name: 'Python', note: 'metadata tools, automation' },
+      { name: 'R', note: 'statistical analysis · visualisation' },
+      { name: 'SQL · Database', note: 'bibliographic DB projects' },
+      { name: 'C# · Qt', note: 'desktop tools for field work' },
+      { name: 'TypeScript · Web', note: 'Astro, Next.js' },
+      { name: 'Tools', note: 'Git · GitHub Actions · Cloudflare' },
+    ],
+    projects: [
+      { name: 'QRA', desc: 'web-based remote access platform', href: '/works/qra', status: 'live' },
+      { name: 'The uneven recovery of UK rail', desc: 'what the national average hides', href: '/works/uk-rail-recovery', status: 'archived' },
+      { name: 'Rail delay dissertation', desc: 'in progress', href: '/works/rail-delay-dissertation', status: 'wip' },
+    ],
+    worksNote: 'Full stories in',
+  },
+}[lang];
 ---
 <Base lang={lang} title="about" description={t(lang, 'aboutDesc')}>
   <main class="wrap narrow" style="margin-inline: auto;">
     <h1>about</h1>
-    <p class="mono meta">{t(lang, 'aboutDesc')}</p>
-    <article class="prose">
-      <Content />
-    </article>
+    <p class="hello">{data.hello}</p>
+    <p class="sub">{data.sub}</p>
+
+    <h2 class="label">education</h2>
+    <ul class="rows">
+      {data.education.map((e) => (
+        <li>
+          <div>
+            <strong>{e.school}</strong>
+            <p class="detail">{e.degree}</p>
+          </div>
+          <span class="mono date">{e.period}</span>
+        </li>
+      ))}
+    </ul>
+
+    <h2 class="label">experience</h2>
+    <div class="exp-head">
+      <div>
+        <strong>{data.company}</strong>
+        <p class="detail">{data.role}</p>
+      </div>
+      <span class="mono date">{data.period}</span>
+    </div>
+    <p class="detail summary">{data.summary}</p>
+    <ul class="grid">
+      {data.workProjects.map((w) => (
+        <li class="card">
+          <strong>{w.name}</strong>
+          <span class="mono meta">{w.tech}</span>
+          <p class="detail">{w.desc}</p>
+        </li>
+      ))}
+    </ul>
+    <p class="mono meta activity">{data.activity}</p>
+
+    <h2 class="label">skills</h2>
+    <ul class="grid skills">
+      {data.skills.map((s) => (
+        <li class="card">
+          <strong>{s.name}</strong>
+          <p class="detail">{s.note}</p>
+        </li>
+      ))}
+    </ul>
+
+    <h2 class="label">projects</h2>
+    <ul class="rows">
+      {data.projects.map((w) => (
+        <li>
+          <span class={`dot ${w.status}`} aria-hidden="true"></span>
+          <a href={p(w.href)}>{w.name}</a>
+          <span class="detail">{w.desc}</span>
+        </li>
+      ))}
+    </ul>
+    <p class="detail">{data.worksNote} <a href={p('/works')}>works</a> →</p>
+
+    <h2 class="label">channels</h2>
+    <p class="mono channels">
+      <a href="https://github.com/Qjins" rel="me">github.com/Qjins</a>
+      <a href="https://qjin.tistory.com">qjin.tistory.com</a>
+      <a href="mailto:qjink126@gmail.com">qjink126@gmail.com</a>
+    </p>
   </main>
 </Base>
 
 <style>
   h1 { margin-bottom: 0.25rem; }
+  .hello { font-size: 1.3rem; font-weight: 500; color: var(--petrol); margin: 2.2rem 0 0.3rem; line-height: 1.5; }
+  .sub { color: var(--muted); margin: 0; }
+  .detail { color: var(--muted); font-size: 0.95rem; margin: 0.15rem 0 0; }
+  .rows li { align-items: baseline; }
+  .rows .dot { flex-shrink: 0; align-self: center; }
+  .rows .date { margin-left: auto; white-space: nowrap; color: var(--muted); }
+  .exp-head { display: flex; align-items: baseline; gap: 0.75rem; }
+  .exp-head .date { margin-left: auto; white-space: nowrap; color: var(--muted); }
+  .summary { margin-top: 0.4rem; }
+  .grid { list-style: none; margin: 1rem 0 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(14rem, 1fr)); gap: 0.75rem; }
+  .card { border: 1px solid var(--line); border-radius: 6px; padding: 0.8rem 1rem; }
+  .card .mono.meta { margin-left: 0.5rem; }
+  .skills .card { padding: 0.6rem 1rem; }
+  .activity { margin: 0.9rem 0 0; }
+  .channels { display: flex; flex-wrap: wrap; gap: 1.2rem; font-size: 0.85rem; }
 </style>

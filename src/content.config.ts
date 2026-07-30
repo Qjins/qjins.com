@@ -26,9 +26,4 @@ const now = defineCollection({
   schema: z.object({}),
 });
 
-const about = defineCollection({
-  loader: glob({ pattern: '*.md', base: './src/content/about' }),
-  schema: z.object({}),
-});
-
-export const collections = { works, notes, now, about };
+export const collections = { works, notes, now };
