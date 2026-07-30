@@ -1,7 +1,7 @@
 ---
 ---
 
-Hi, I'm **Kyujin** — I make things with data.
+Hi, I'm **Qjin** — I make things with data.
 
 I learned to work with data in the field, not from textbooks. Over four
 years building bibliographic and archival databases for national
