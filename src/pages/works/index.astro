@@ -1,0 +1,33 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+
+const works = (await getCollection('works')).sort((a, b) => +b.data.date - +a.data.date);
+const fmt = (d: Date) => d.toISOString().slice(0, 7);
+---
+<Base title="works" description="만든 것들 — 스크린샷 갤러리가 아니라 의사결정 기록">
+  <main class="wrap">
+    <h1>works</h1>
+    <p class="meta">만든 것들. 스크린샷 갤러리가 아니라 의사결정 기록 — 뭐가 안 됐는지까지 적습니다.</p>
+    <ul class="rows">
+      {works.map((w) => (
+        <li>
+          <span class={`dot ${w.data.status}`} title={w.data.status} aria-hidden="true"></span>
+          <div>
+            <a href={`/works/${w.id}`}>{w.data.title}</a>
+            <p class="summary">{w.data.summary}</p>
+          </div>
+          <span class="mono date">{fmt(w.data.date)}</span>
+        </li>
+      ))}
+    </ul>
+  </main>
+</Base>
+
+<style>
+  h1 { margin-bottom: 0.25rem; }
+  .rows { margin-top: 2rem; }
+  .rows li { align-items: flex-start; padding: 0.9rem 0; }
+  .rows .dot { margin-top: 0.55rem; flex-shrink: 0; }
+  .summary { margin: 0.15rem 0 0; color: var(--muted); font-size: 0.95rem; }
+</style>

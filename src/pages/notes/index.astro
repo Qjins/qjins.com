@@ -1,0 +1,27 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+
+const notes = (await getCollection('notes')).sort((a, b) => +b.data.date - +a.data.date);
+const fmt = (d: Date) => d.toISOString().slice(0, 10);
+---
+<Base title="notes" description="짧은 기록 — 삽질 로그, 라이브러리 함정, 3줄 메모">
+  <main class="wrap">
+    <h1>notes</h1>
+    <p class="meta">짧은 기록. 삽질 로그, 라이브러리 함정, 3줄 메모.</p>
+    <ul class="rows">
+      {notes.map((n) => (
+        <li>
+          <span class="mono meta">{fmt(n.data.date)}</span>
+          <a href={`/notes/${n.id}`}>{n.data.title}</a>
+        </li>
+      ))}
+    </ul>
+  </main>
+</Base>
+
+<style>
+  h1 { margin-bottom: 0.25rem; }
+  .rows { margin-top: 2rem; }
+  .rows .mono { flex-shrink: 0; }
+</style>

@@ -1,0 +1,37 @@
+---
+import { getCollection, render } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+
+export async function getStaticPaths() {
+  const works = await getCollection('works');
+  return works.map((entry) => ({ params: { slug: entry.id }, props: { entry } }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+const fmt = (d: Date) => d.toISOString().slice(0, 10);
+---
+<Base title={entry.data.title} description={entry.data.summary}>
+  <main class="wrap">
+    <header class="head">
+      <h1>{entry.data.title}</h1>
+      <p class="mono meta">
+        <span class={`dot ${entry.data.status}`} aria-hidden="true"></span>
+        {entry.data.status} · {fmt(entry.data.date)}
+        {entry.data.url && <> · <a href={entry.data.url}>{new URL(entry.data.url).host}</a></>}
+      </p>
+      <p class="summary">{entry.data.summary}</p>
+    </header>
+    <article class="prose">
+      <Content />
+    </article>
+  </main>
+</Base>
+
+<style>
+  .head { margin: 2.5rem 0 0; }
+  h1 { margin: 0 0 0.4rem; }
+  .head .mono { margin: 0; }
+  .head .dot { margin-right: 0.35rem; }
+  .summary { color: var(--muted); margin: 0.75rem 0 0; }
+</style>
