@@ -11,8 +11,8 @@ const dict = {
     en: 'A one-person studio making things with data',
   },
   introHtml: {
-    ko: '데이터로 뭔가 만드는 1인 스튜디오.<br />주인공은 제가 아니라 <a href="/works">제가 만드는 것들</a>입니다.',
-    en: 'A one-person studio making things with data.<br />The main character isn\'t me — it\'s <a href="/en/works">the things I make</a>.',
+    ko: '안녕하세요, 데이터로 뭔가 만드는 <strong class="name">Qjin</strong>입니다.<br />영국에서 데이터 사이언스를 공부하면서, 틈틈이 이것저것 만듭니다.',
+    en: 'Hi, I\'m <strong class="name">Qjin</strong> — I make things with data.<br />I\'m studying data science in the UK and building things on the side.',
   },
   servicesEmpty: {
     ko: '아직 없음 — 첫 서비스가 lab에서 만들어지는 중입니다. 완성되면 여기에 걸립니다.',

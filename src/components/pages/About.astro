@@ -21,7 +21,7 @@ const icons: Record<string, string> = {
 
 const data = {
   ko: {
-    hello: '안녕하세요, 데이터로 뭔가 만드는 Qjin입니다.',
+    hello: '안녕하세요, 데이터로 뭔가 만드는 <strong class="name">Qjin</strong>입니다.',
     sub: '영국에서 데이터 사이언스를 공부하면서, 틈틈이 이것저것 만듭니다.',
     education: [
       { school: 'University of Sheffield', degree: 'MSc Data Science', period: '2025 –' },
@@ -38,7 +38,7 @@ const data = {
     ],
     activities: [
       {
-        name: '지하철역 혼잡도 예측 모델 연구 · 1저자',
+        name: '지하철역 혼잡도 예측 모델 연구',
         detail: '딥러닝(MLP) 기반 혼잡도 동적 분석·예측 — 한국컴퓨터정보학회 동계학술대회 논문. AIS Lab(대학 연합 동아리) 활동으로 진행',
         period: '2023.11 – 2024.01',
       },
@@ -64,7 +64,7 @@ const data = {
     ],
   },
   en: {
-    hello: "Hi, I'm Qjin — I make things with data.",
+    hello: 'Hi, I\'m <strong class="name">Qjin</strong> — I make things with data.',
     sub: "I'm studying data science in the UK and building things on the side.",
     education: [
       { school: 'University of Sheffield', degree: 'MSc Data Science', period: '2025 –' },
@@ -81,7 +81,7 @@ const data = {
     ],
     activities: [
       {
-        name: 'Subway congestion prediction model · first author',
+        name: 'Subway congestion prediction model',
         detail: 'Deep-learning (MLP) dynamic analysis and prediction of station congestion — paper at the KSCI winter conference, done through AIS Lab, an inter-university club',
         period: 'Nov 2023 – Jan 2024',
       },
@@ -111,7 +111,7 @@ const data = {
 <Base lang={lang} title="about" description={t(lang, 'aboutDesc')}>
   <main class="wrap narrow" style="margin-inline: auto;">
     <h1>about</h1>
-    <p class="hello">{data.hello}</p>
+    <p class="hello" set:html={data.hello} />
     <p class="sub">{data.sub}</p>
 
     <h2 class="label"><span class="ico" set:html={icons.education} /> education</h2>
@@ -196,6 +196,7 @@ const data = {
 <style>
   h1 { margin-bottom: 0.25rem; }
   .hello { font-size: 1.3rem; font-weight: 500; color: var(--petrol); margin: 2.2rem 0 0.3rem; line-height: 1.5; }
+  .hello :global(.name) { font-weight: 800; }
   .sub { color: var(--muted); margin: 0; }
   .detail { color: var(--muted); font-size: 0.95rem; margin: 0.15rem 0 0; }
   .label { display: flex; align-items: center; gap: 0.5rem; }
