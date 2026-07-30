@@ -1,0 +1,25 @@
+---
+import { getCollection, render } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import { t, type Lang } from '../../lib/i18n';
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+
+const entries = await getCollection('about');
+const entry = entries.find((e) => e.id === lang) ?? entries.find((e) => e.id === 'ko') ?? entries[0];
+const { Content } = await render(entry);
+---
+<Base lang={lang} title="about" description={t(lang, 'aboutDesc')}>
+  <main class="wrap narrow" style="margin-inline: auto;">
+    <h1>about</h1>
+    <p class="mono meta">{t(lang, 'aboutDesc')}</p>
+    <article class="prose">
+      <Content />
+    </article>
+  </main>
+</Base>
+
+<style>
+  h1 { margin-bottom: 0.25rem; }
+</style>

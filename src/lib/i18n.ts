@@ -27,6 +27,7 @@ const dict = {
     en: 'Short notes. Debugging logs, library gotchas, three-line memos.',
   },
   nowDesc: { ko: '요즘 하는 일', en: 'What I am up to now' },
+  aboutDesc: { ko: '만드는 사람 소개', en: 'About the person behind the studio' },
   blogDesc: {
     ko: '티스토리(괴발일기)에 쓰는 글. 제목을 누르면 원문으로 이동합니다.',
     en: 'Posts from my Tistory blog, written in Korean. Titles link to the original.',
