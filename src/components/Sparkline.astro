@@ -1,0 +1,9 @@
+---
+// 푸터 에코: 어느 페이지에 있어도 심박이 잡힌다.
+import { loadPulse, toPoints } from '../lib/pulse';
+const pulse = loadPulse();
+const points = toPoints(pulse.values, 64, 18, 2);
+---
+<svg width="64" height="18" viewBox="0 0 64 18" aria-hidden="true">
+  <polyline points={points} fill="none" stroke="var(--coral)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" />
+</svg>
