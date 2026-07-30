@@ -1,0 +1,109 @@
+/* ---------- 토큰 ---------- */
+:root {
+  --paper: #f7f7f4;
+  --ink: #22262a;
+  --petrol: #103241;   /* 구조: 헤딩, 로고, 보더 */
+  --coral: #f94957;    /* 신호: 펄스, 링크 호버, failed 섹션, live 점 */
+  --charcoal: #3b3838; /* 오프셋 그림자 전용 */
+  --muted: #667080;
+  --line: rgba(34, 38, 42, 0.12);
+  --tint: rgba(249, 73, 87, 0.06);
+}
+:root[data-theme='dark'] {
+  --paper: #101619;
+  --ink: #e6e9ea;
+  --petrol: #c9d8e0;
+  --coral: #ff5f6b;
+  --charcoal: #454140;
+  --muted: #8a939c;
+  --line: rgba(230, 233, 234, 0.14);
+  --tint: rgba(255, 95, 107, 0.08);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+    --paper: #101619;
+    --ink: #e6e9ea;
+    --petrol: #c9d8e0;
+    --coral: #ff5f6b;
+    --charcoal: #454140;
+    --muted: #8a939c;
+    --line: rgba(230, 233, 234, 0.14);
+    --tint: rgba(255, 95, 107, 0.08);
+  }
+}
+
+/* ---------- 베이스 ---------- */
+* { box-sizing: border-box; }
+html { color-scheme: light dark; }
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: 'Pretendard Variable', Pretendard, -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  font-size: 1.0625rem;
+  line-height: 1.75;
+  -webkit-font-smoothing: antialiased;
+}
+.mono {
+  font-family: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.8125rem;
+  letter-spacing: 0.02em;
+}
+a { color: inherit; text-decoration: underline; text-decoration-color: var(--line); text-underline-offset: 3px; }
+a:hover { color: var(--coral); text-decoration-color: var(--coral); }
+:focus-visible { outline: 2px solid var(--coral); outline-offset: 3px; border-radius: 2px; }
+
+h1, h2, h3 { color: var(--petrol); line-height: 1.35; }
+h1 { font-size: 1.6rem; font-weight: 700; }
+h2 { font-size: 1.15rem; font-weight: 700; }
+
+.wrap { max-width: 42rem; margin: 0 auto; padding: 0 1.25rem; }
+.label {
+  font-family: 'IBM Plex Mono', ui-monospace, monospace;
+  font-size: 0.75rem;
+  letter-spacing: 0.14em;
+  color: var(--muted);
+  text-transform: uppercase;
+  margin: 3rem 0 0.75rem;
+}
+.meta { color: var(--muted); }
+
+/* ---------- 목록 ---------- */
+.rows { list-style: none; margin: 0; padding: 0; }
+.rows li { display: flex; align-items: baseline; gap: 0.75rem; padding: 0.55rem 0; border-bottom: 1px solid var(--line); }
+.rows li:last-child { border-bottom: 0; }
+.rows .date { margin-left: auto; white-space: nowrap; color: var(--muted); }
+.rows a { text-decoration: none; }
+.rows a:hover { color: var(--coral); }
+
+.dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; vertical-align: 1px; }
+.dot.live { background: var(--coral); }
+.dot.wip { background: transparent; border: 1.5px solid var(--coral); }
+.dot.archived { background: var(--line); }
+
+/* ---------- 본문(prose) ---------- */
+.prose { counter-reset: section; }
+.prose h2 { margin-top: 2.75rem; counter-increment: section; }
+.prose h2::before {
+  content: '0' counter(section);
+  font-family: 'IBM Plex Mono', ui-monospace, monospace;
+  font-size: 0.75rem;
+  font-weight: 400;
+  color: var(--coral);
+  display: block;
+  letter-spacing: 0.14em;
+}
+.prose img { max-width: 100%; }
+.prose pre { padding: 1rem; overflow-x: auto; border: 1px solid var(--line); border-radius: 6px; font-size: 0.85rem; }
+.prose code { font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 0.85em; }
+.prose blockquote { margin: 1.5rem 0; padding-left: 1rem; border-left: 2px solid var(--line); color: var(--muted); }
+
+/* "뭐가 안 됐나" — 계약 섹션. 눈에 띄게, 빼먹기 어렵게 */
+.prose .failed {
+  margin: 2.75rem 0;
+  padding: 0.25rem 1.25rem 0.75rem;
+  border-left: 3px solid var(--coral);
+  background: var(--tint);
+  border-radius: 0 6px 6px 0;
+}
+.prose .failed h2 { margin-top: 1rem; }

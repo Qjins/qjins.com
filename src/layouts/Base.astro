@@ -1,0 +1,84 @@
+---
+import 'pretendard/dist/web/variable/pretendardvariable-dynamic-subset.css';
+import '@fontsource/ibm-plex-mono/400.css';
+import '@fontsource/ibm-plex-mono/500.css';
+import '../styles/global.css';
+import Logo from '../components/Logo.astro';
+import Sparkline from '../components/Sparkline.astro';
+
+interface Props { title?: string; description?: string }
+const { title, description = '데이터로 뭔가 만드는 1인 스튜디오' } = Astro.props;
+const pageTitle = title ? `${title} · qjins` : 'qjins — 데이터로 뭔가 만드는 1인 스튜디오';
+const nav = [
+  { href: '/works', label: 'works' },
+  { href: '/notes', label: 'notes' },
+  { href: '/now', label: 'now' },
+];
+const path = Astro.url.pathname;
+---
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{pageTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="canonical" href={new URL(path, Astro.site)} />
+    <!--
+      Cloudflare Web Analytics (쿠키 없음):
+      Cloudflare 대시보드 > Web Analytics에서 사이트 등록 후 아래 주석을 풀고 토큰을 넣으세요.
+      <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "YOUR_TOKEN"}'></script>
+    -->
+  </head>
+  <body>
+    <header class="wrap site-header">
+      <a href="/" class="home-link" aria-label="qjins 홈">
+        <Logo height={24} />
+        <span class="wordmark">qjins</span>
+      </a>
+      <nav aria-label="주 메뉴">
+        {nav.map((item) => (
+          <a href={item.href} class="mono" aria-current={path.startsWith(item.href) ? 'page' : undefined}>
+            {item.label}
+          </a>
+        ))}
+        <button id="theme-toggle" aria-label="테마 전환" title="테마 전환 (새로고침하면 시스템 설정으로 돌아갑니다)">◐</button>
+      </nav>
+    </header>
+
+    <slot />
+
+    <footer class="wrap site-footer">
+      <Sparkline />
+      <span class="mono meta">qjins.com</span>
+      <span class="links mono">
+        <a href="mailto:qjink126@gmail.com">mail</a>
+        <a href="https://github.com/qjin" rel="me">github</a>
+      </span>
+    </footer>
+
+    <script is:inline>
+      // 세션 한정 테마 토글. localStorage 없음 — 새로고침하면 prefers-color-scheme으로 복귀.
+      document.getElementById('theme-toggle')?.addEventListener('click', () => {
+        const root = document.documentElement;
+        const systemDark = matchMedia('(prefers-color-scheme: dark)').matches;
+        const current = root.dataset.theme || (systemDark ? 'dark' : 'light');
+        root.dataset.theme = current === 'dark' ? 'light' : 'dark';
+      });
+    </script>
+  </body>
+</html>
+
+<style>
+  .site-header { display: flex; align-items: center; justify-content: space-between; padding-top: 1.5rem; padding-bottom: 0.5rem; }
+  .home-link { display: inline-flex; align-items: center; gap: 0.55rem; text-decoration: none; }
+  .wordmark { font-weight: 700; color: var(--petrol); letter-spacing: -0.01em; }
+  nav { display: flex; align-items: center; gap: 1.1rem; }
+  nav a { text-decoration: none; color: var(--muted); }
+  nav a:hover, nav a[aria-current='page'] { color: var(--coral); }
+  #theme-toggle { background: none; border: 0; cursor: pointer; font-size: 1rem; color: var(--muted); padding: 0.2rem; line-height: 1; }
+  #theme-toggle:hover { color: var(--coral); }
+  .site-footer { display: flex; align-items: center; gap: 0.9rem; padding-top: 4rem; padding-bottom: 2.5rem; }
+  .site-footer .links { margin-left: auto; display: flex; gap: 0.9rem; }
+</style>
