@@ -56,22 +56,25 @@ url: https://...   # 선택
 - `pulse.json` 이 없거나 깨져도 홈은 죽지 않고 `NO SIGNAL` 플랫 라인을 그립니다
   (`src/lib/pulse.ts` 의 fallback).
 
-## Cloudflare Pages 배포 설정
+## Cloudflare 배포 설정
 
-1. GitHub에 이 저장소를 push
-2. Cloudflare 대시보드 → Workers & Pages → Create → Pages → 저장소 연결
-3. 빌드 설정:
-   - Framework preset: **Astro**
-   - Build command: `npm run build`
-   - Build output directory: `dist`
+새 대시보드는 Git 연결 시 **Workers** 경로("Create a Worker")로 안내한다.
+`wrangler.jsonc` 가 있어서 그대로 진행하면 된다:
+
+1. Cloudflare 대시보드 → Workers & Pages → Create → 저장소 `Qjins/qjins.com` 연결
+2. Project name: `qjins` (wrangler.jsonc의 name과 일치해야 함)
+3. Build command: `npm run build` / Deploy command: `npx wrangler deploy` (기본값)
 4. 이후 `git push` 할 때마다 자동 배포
+
+구형 **Pages** 경로로 만들 경우: Framework preset **Astro**,
+build `npm run build`, output `dist`. (이때 wrangler.jsonc는 무시됨)
 
 Web Analytics(쿠키 없음)를 켜려면 대시보드에서 사이트 등록 후
 `src/layouts/Base.astro` 의 주석 처리된 beacon 스크립트에 토큰을 넣으세요.
 
 ## 커스텀 도메인 연결 절차
 
-1. Pages 프로젝트 → Custom domains → `qjins.com` 추가 (`www`도 원하면 함께)
+1. Worker(또는 Pages 프로젝트) → Settings → Domains & Routes → Custom domain → `qjins.com` 추가 (`www`도 원하면 함께)
 2. 도메인 네임서버가 Cloudflare면 CNAME 레코드가 자동 생성됨 —
    아니면 안내되는 CNAME(`<project>.pages.dev`)을 DNS에 직접 추가
 3. SSL은 자동 발급. 전파까지 보통 몇 분
