@@ -5,7 +5,7 @@ import { loadPulse, toPoints } from '../lib/pulse';
 const pulse = loadPulse();
 const W = 720;
 const H = 96;
-const points = toPoints(pulse.values, W, H);
+const points = toPoints(pulse.values, W, H, 12);
 ---
 <section class="pulse" aria-label="오늘의 펄스">
   <svg viewBox={`0 0 ${W} ${H}`} preserveAspectRatio="none" role="img">
@@ -21,6 +21,6 @@ const points = toPoints(pulse.values, W, H);
 
 <style>
   .pulse { padding: 1.5rem 0 0; }
-  svg { display: block; width: 100%; height: 96px; }
+  svg { display: block; width: 100vw; margin-left: calc(50% - 50vw); height: 110px; }
   .caption { margin: 0.4rem 0 0; color: var(--muted); }
 </style>

@@ -12,7 +12,7 @@ const { Content } = await render(entry);
 const fmt = (d: Date) => d.toISOString().slice(0, 10);
 ---
 <Base title={entry.data.title}>
-  <main class="wrap">
+  <main class="wrap narrow" style="margin-inline: auto;">
     <header class="head">
       <p class="mono meta">{fmt(entry.data.date)}</p>
       <h1>{entry.data.title}</h1>

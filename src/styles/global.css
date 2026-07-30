@@ -37,6 +37,7 @@
 html { color-scheme: light dark; }
 body {
   margin: 0;
+  overflow-x: clip;
   background: var(--paper);
   color: var(--ink);
   font-family: 'Pretendard Variable', Pretendard, -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
@@ -57,7 +58,11 @@ h1, h2, h3 { color: var(--petrol); line-height: 1.35; }
 h1 { font-size: 1.6rem; font-weight: 700; }
 h2 { font-size: 1.15rem; font-weight: 700; }
 
-.wrap { max-width: 42rem; margin: 0 auto; padding: 0 1.25rem; }
+.wrap { max-width: 72rem; margin: 0 auto; padding: 0 clamp(1.25rem, 4vw, 2.5rem); }
+.narrow { max-width: 44rem; }
+.bleed { width: 100vw; margin-left: calc(50% - 50vw); }
+.home-grid { display: grid; grid-template-columns: 5fr 4fr; gap: 0 4rem; align-items: start; }
+@media (max-width: 56rem) { .home-grid { grid-template-columns: 1fr; } }
 .label {
   font-family: 'IBM Plex Mono', ui-monospace, monospace;
   font-size: 0.75rem;
