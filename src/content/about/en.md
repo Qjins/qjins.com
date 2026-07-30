@@ -3,10 +3,7 @@
 
 Hi, I'm **Qjin** — I make things with data.
 
-I spent four years on bibliographic and archival database projects for
-national institutions, working with large-scale unstructured data, and
-I'm now doing an MSc in Data Science at the University of Sheffield.
-On the side I build web services and put them on this site.
+I'm studying data science in the UK and building things on the side.
 
 ## Profile
 
