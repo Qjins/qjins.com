@@ -3,13 +3,10 @@
 
 Hi, I'm **Qjin** — I make things with data.
 
-I learned to work with data in the field, not from textbooks. Over four
-years building bibliographic and archival databases for national
-institutions, I wrote the tools that collected, cleaned and inspected
-millions of messy, unstructured records. The instinct that formed there —
-*data is always dirtier than you think, and good tooling is half the
-job* — is what I carry now, studying data science in the UK and building
-services in this studio.
+I spent four years on bibliographic and archival database projects for
+national institutions, working with large-scale unstructured data, and
+I'm now doing an MSc in Data Science at the University of Sheffield.
+On the side I build web services and put them on this site.
 
 ## Profile
 
