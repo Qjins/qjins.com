@@ -37,8 +37,8 @@ const fmt = (d: Date) => d.toISOString().slice(0, 10);
                 <a href={s.url}>
                   <span class={`dot ${s.status}`} aria-hidden="true"></span>
                   <strong>{s.name}</strong>
-                  <span class="mono meta">{s.zone}.qjins.com</span>
-                  <p>{s.description}</p>
+                  <span class="mono meta">{new URL(s.url).host}</span>
+                  <p>{s.description[lang]}</p>
                 </a>
               </li>
             ))}
