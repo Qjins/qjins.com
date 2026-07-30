@@ -5,19 +5,18 @@ import '@fontsource/ibm-plex-mono/500.css';
 import '../styles/global.css';
 import Logo from '../components/Logo.astro';
 import Sparkline from '../components/Sparkline.astro';
+import { t, localePath, switchPath, type Lang } from '../lib/i18n';
 
-interface Props { title?: string; description?: string }
-const { title, description = '데이터로 뭔가 만드는 1인 스튜디오' } = Astro.props;
-const pageTitle = title ? `${title} · qjins` : 'qjins — 데이터로 뭔가 만드는 1인 스튜디오';
-const nav = [
-  { href: '/works', label: 'works' },
-  { href: '/notes', label: 'notes' },
-  { href: '/now', label: 'now' },
-];
+interface Props { title?: string; description?: string; lang?: Lang }
+const { title, lang = 'ko', description = t(lang, 'siteDesc') } = Astro.props;
+const pageTitle = title ? `${title} · qjins` : t(lang, 'siteTitle');
+const nav = ['works', 'notes', 'now'] as const;
 const path = Astro.url.pathname;
+const koPath = lang === 'ko' ? path : switchPath(path);
+const enPath = lang === 'en' ? path : switchPath(path);
 ---
 <!doctype html>
-<html lang="ko">
+<html lang={lang}>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -25,6 +24,8 @@ const path = Astro.url.pathname;
     <meta name="description" content={description} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="canonical" href={new URL(path, Astro.site)} />
+    <link rel="alternate" hreflang="ko" href={new URL(koPath, Astro.site)} />
+    <link rel="alternate" hreflang="en" href={new URL(enPath, Astro.site)} />
     <!--
       Cloudflare Web Analytics (쿠키 없음):
       Cloudflare 대시보드 > Web Analytics에서 사이트 등록 후 아래 주석을 풀고 토큰을 넣으세요.
@@ -33,17 +34,20 @@ const path = Astro.url.pathname;
   </head>
   <body>
     <header class="wrap site-header">
-      <a href="/" class="home-link" aria-label="qjins 홈">
+      <a href={localePath(lang, '/')} class="home-link" aria-label="Qjins home">
         <Logo height={24} />
         <span class="wordmark">Qjins</span>
       </a>
-      <nav aria-label="주 메뉴">
+      <nav aria-label={lang === 'ko' ? '주 메뉴' : 'Main menu'}>
         {nav.map((item) => (
-          <a href={item.href} class="mono" aria-current={path.startsWith(item.href) ? 'page' : undefined}>
-            {item.label}
+          <a href={localePath(lang, `/${item}`)} class="mono" aria-current={path.replace(/^\/en/, '').startsWith(`/${item}`) ? 'page' : undefined}>
+            {item}
           </a>
         ))}
-        <button id="theme-toggle" aria-label="테마 전환" title="테마 전환 (새로고침하면 시스템 설정으로 돌아갑니다)">◐</button>
+        <a href={switchPath(path)} class="mono lang-switch" aria-label={lang === 'ko' ? 'Switch to English' : '한국어로 전환'}>
+          {lang === 'ko' ? 'EN' : 'KO'}
+        </a>
+        <button id="theme-toggle" aria-label={lang === 'ko' ? '테마 전환' : 'Toggle theme'}>◐</button>
       </nav>
     </header>
 
@@ -77,6 +81,7 @@ const path = Astro.url.pathname;
   nav { display: flex; align-items: center; gap: 1.1rem; }
   nav a { text-decoration: none; color: var(--muted); }
   nav a:hover, nav a[aria-current='page'] { color: var(--coral); }
+  .lang-switch { border-left: 1px solid var(--line); padding-left: 1.1rem; }
   #theme-toggle { background: none; border: 0; cursor: pointer; font-size: 1rem; color: var(--muted); padding: 0.2rem; line-height: 1; }
   #theme-toggle:hover { color: var(--coral); }
   .site-footer { display: flex; align-items: center; gap: 0.9rem; padding-top: 4rem; padding-bottom: 2.5rem; }

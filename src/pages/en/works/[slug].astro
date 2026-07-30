@@ -1,0 +1,11 @@
+---
+import WorkDetail from '../../../components/pages/WorkDetail.astro';
+import { getWorks, slugOf } from '../../../lib/content';
+
+export async function getStaticPaths() {
+  const works = await getWorks('en');
+  return works.map((entry) => ({ params: { slug: slugOf(entry) }, props: { entry } }));
+}
+const { entry } = Astro.props;
+---
+<WorkDetail lang="en" entry={entry} />

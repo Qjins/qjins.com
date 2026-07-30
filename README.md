@@ -8,9 +8,17 @@ npm run dev     # 개발 서버 (localhost:4321)
 npm run build   # dist/ 에 정적 빌드
 ```
 
+## 언어 구조 (한/영)
+
+- URL: `/`(한국어) · `/en/`(영어). 헤더의 EN/KO로 전환.
+- 콘텐츠는 로케일 폴더로 나뉜다: `works/ko/`, `works/en/`, `notes/ko/`, `notes/en/`, `now/ko.md`, `now/en.md`
+- **번역은 선택.** 한국어로만 쓰면 영어 목록에도 그 글이 그대로 노출된다(`· ko` 표시).
+  영어 번역을 추가하려면 `en/` 폴더에 **같은 파일명**으로 만들면 자동으로 교체된다.
+- UI 문자열은 `src/lib/i18n.ts` 한 곳에서 관리.
+
 ## 새 프로젝트(works) 추가하는 법
 
-`src/content/works/` 에 md 파일 하나를 만들면 끝.
+`src/content/works/ko/` 에 md 파일 하나를 만들면 끝. (영어 번역은 `en/`에 같은 파일명)
 
 ```markdown
 ---
@@ -28,12 +36,13 @@ url: https://...   # 선택
 ```
 
 **네 개의 H2 섹션은 계약입니다.** 하나라도 빠지면(특히 "뭐가 안 됐나")
-빌드가 실패합니다. 검증 로직: `src/lib/remark-works-contract.mjs`.
+빌드가 실패합니다. 영어 문서는 `What was the problem / What approach I took /
+What didn't work / How it turned out` 네 섹션. 검증: `src/lib/remark-works-contract.mjs`.
 
 ## 새 노트 추가하는 법
 
-`src/content/notes/` 에 md 파일 하나. frontmatter는 `title`, `date` 두 개면 끝.
-`/now` 페이지는 `src/content/now/now.md` 하나를 수정하면 되고,
+`src/content/notes/ko/` 에 md 파일 하나. frontmatter는 `title`, `date` 두 개면 끝.
+`/now` 페이지는 `src/content/now/ko.md`(영어는 `en.md`)를 수정하면 되고,
 마지막 수정 날짜는 git 이력에서 자동으로 읽습니다.
 
 ## 서비스 목록에 항목 추가하는 법

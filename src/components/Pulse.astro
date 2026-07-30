@@ -2,20 +2,24 @@
 // 시그니처: 오늘의 펄스. 로고와 같은 오프셋(판 어긋남) 스타일 —
 // 차콜 판이 (3,3) 어긋나게 깔리고 코랄 파형이 위에 올라간다.
 import { loadPulse, toPoints } from '../lib/pulse';
+import { t, type Lang } from '../lib/i18n';
+
+interface Props { lang?: Lang }
+const { lang = 'ko' } = Astro.props;
 const pulse = loadPulse();
 const W = 720;
 const H = 96;
 const points = toPoints(pulse.values, W, H, 12);
 ---
-<section class="pulse" aria-label="오늘의 펄스">
+<section class="pulse" aria-label={t(lang, 'pulseTitle')}>
   <svg viewBox={`0 0 ${W} ${H}`} preserveAspectRatio="none" role="img">
-    <title>오늘의 펄스</title>
-    <desc>{pulse.ok ? `${pulse.label} 데이터의 파형` : '데이터 없음'}</desc>
+    <title>{t(lang, 'pulseTitle')}</title>
+    <desc>{pulse.ok ? pulse.label : 'no data'}</desc>
     <polyline points={points} transform="translate(3,3)" fill="none" stroke="var(--charcoal)" stroke-width="2.5" opacity="0.5" stroke-linejoin="round" stroke-linecap="round" />
     <polyline points={points} fill="none" stroke="var(--coral)" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round" />
   </svg>
   <p class="mono caption">
-    {pulse.ok ? `${pulse.updated} · ${pulse.label}` : 'NO SIGNAL · pulse.json 없음'}
+    {pulse.ok ? `${pulse.updated} · ${pulse.label}` : t(lang, 'pulseNoSignal')}
   </p>
 </section>
 

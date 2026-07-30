@@ -1,0 +1,37 @@
+---
+import Base from '../../layouts/Base.astro';
+import { getWorks, slugOf, langOf } from '../../lib/content';
+import { t, localePath, type Lang } from '../../lib/i18n';
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const works = await getWorks(lang);
+const fmt = (d: Date) => d.toISOString().slice(0, 7);
+---
+<Base lang={lang} title="works" description={t(lang, 'worksDesc')}>
+  <main class="wrap">
+    <h1>works</h1>
+    <p class="meta">{t(lang, 'worksDesc')}</p>
+    <ul class="rows">
+      {works.map((w) => (
+        <li>
+          <span class={`dot ${w.data.status}`} title={w.data.status} aria-hidden="true"></span>
+          <div>
+            <a href={localePath(lang, `/works/${slugOf(w)}`)}>{w.data.title}</a>
+            {lang === 'en' && langOf(w) === 'ko' && <span class="mono meta"> · ko</span>}
+            <p class="summary">{w.data.summary}</p>
+          </div>
+          <span class="mono date">{fmt(w.data.date)}</span>
+        </li>
+      ))}
+    </ul>
+  </main>
+</Base>
+
+<style>
+  h1 { margin-bottom: 0.25rem; }
+  .rows { margin-top: 2rem; }
+  .rows li { align-items: flex-start; padding: 0.9rem 0; }
+  .rows .dot { margin-top: 0.55rem; flex-shrink: 0; }
+  .summary { margin: 0.15rem 0 0; color: var(--muted); font-size: 0.95rem; }
+</style>

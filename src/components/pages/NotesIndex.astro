@@ -1,0 +1,31 @@
+---
+import Base from '../../layouts/Base.astro';
+import { getNotes, slugOf, langOf } from '../../lib/content';
+import { t, localePath, type Lang } from '../../lib/i18n';
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const notes = await getNotes(lang);
+const fmt = (d: Date) => d.toISOString().slice(0, 10);
+---
+<Base lang={lang} title="notes" description={t(lang, 'notesDesc')}>
+  <main class="wrap">
+    <h1>notes</h1>
+    <p class="meta">{t(lang, 'notesDesc')}</p>
+    <ul class="rows">
+      {notes.map((n) => (
+        <li>
+          <span class="mono meta">{fmt(n.data.date)}</span>
+          <a href={localePath(lang, `/notes/${slugOf(n)}`)}>{n.data.title}</a>
+          {lang === 'en' && langOf(n) === 'ko' && <span class="mono meta">· ko</span>}
+        </li>
+      ))}
+    </ul>
+  </main>
+</Base>
+
+<style>
+  h1 { margin-bottom: 0.25rem; }
+  .rows { margin-top: 2rem; }
+  .rows .mono { flex-shrink: 0; }
+</style>

@@ -1,0 +1,82 @@
+---
+import Base from '../../layouts/Base.astro';
+import Pulse from '../Pulse.astro';
+import { services } from '../../config/services';
+import { getWorks, getNotes, slugOf } from '../../lib/content';
+import { t, localePath, type Lang } from '../../lib/i18n';
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+
+const works = await getWorks(lang);
+const notes = await getNotes(lang);
+const recent = [
+  ...works.map((w) => ({ kind: 'work', title: w.data.title, href: localePath(lang, `/works/${slugOf(w)}`), date: w.data.date })),
+  ...notes.map((n) => ({ kind: 'note', title: n.data.title, href: localePath(lang, `/notes/${slugOf(n)}`), date: n.data.date })),
+]
+  .sort((a, b) => +b.date - +a.date)
+  .slice(0, 5);
+
+const fmt = (d: Date) => d.toISOString().slice(0, 10);
+---
+<Base lang={lang}>
+  <div class="wrap">
+    <Pulse lang={lang} />
+
+    <p class="intro" set:html={t(lang, 'introHtml')} />
+
+    <div class="home-grid">
+      <section>
+        <h2 class="label">services</h2>
+        {services.length === 0 ? (
+          <p class="empty">{t(lang, 'servicesEmpty')}</p>
+        ) : (
+          <ul class="cards">
+            {services.map((s) => (
+              <li>
+                <a href={s.url}>
+                  <span class={`dot ${s.status}`} aria-hidden="true"></span>
+                  <strong>{s.name}</strong>
+                  <span class="mono meta">{s.zone}.qjins.com</span>
+                  <p>{s.description}</p>
+                </a>
+              </li>
+            ))}
+          </ul>
+        )}
+
+        <h2 class="label">contact</h2>
+        <p class="mono contact">
+          <a href="mailto:qjink126@gmail.com">qjink126@gmail.com</a> · <a href="https://github.com/Qjins" rel="me">github</a>
+        </p>
+      </section>
+
+      <section>
+        <h2 class="label">recent</h2>
+        <ul class="rows">
+          {recent.map((r) => (
+            <li>
+              <span class="mono meta kind">{r.kind}</span>
+              <a href={r.href}>{r.title}</a>
+              <span class="mono date">{fmt(r.date)}</span>
+            </li>
+          ))}
+        </ul>
+      </section>
+    </div>
+  </div>
+</Base>
+
+<style>
+  .intro { font-size: clamp(1.35rem, 2.2vw, 1.7rem); line-height: 1.6; margin: 2.75rem 0 0.5rem; color: var(--petrol); font-weight: 500; max-width: 50rem; }
+  .intro :global(a) { text-decoration-color: var(--coral); }
+  .empty { color: var(--muted); border: 1px dashed var(--line); border-radius: 6px; padding: 1rem 1.25rem; margin: 0; }
+  .cards { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr)); gap: 0.75rem; }
+  .cards a { display: block; border: 1px solid var(--line); border-radius: 6px; padding: 0.9rem 1.1rem; text-decoration: none; }
+  .cards a:hover { border-color: var(--coral); color: inherit; }
+  .cards p { margin: 0.3rem 0 0; color: var(--muted); font-size: 0.95rem; }
+  .cards .dot { margin-right: 0.5rem; }
+  .cards .mono.meta { margin-left: 0.5rem; }
+  .kind { width: 2.6rem; flex-shrink: 0; }
+  .contact { font-size: 0.9rem; }
+</style>
