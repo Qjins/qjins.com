@@ -6,6 +6,19 @@ interface Props { lang: Lang }
 const { lang } = Astro.props;
 const p = (path: string) => (lang === 'en' ? `/en${path}` : path);
 
+const S = 'width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"';
+const icons: Record<string, string> = {
+  education: `<svg viewBox="0 0 24 24" ${S}><path d="M12 4 2.5 8.5 12 13l9.5-4.5Z"/><path d="M6 10.8V16c0 0 2.4 2 6 2s6-2 6-2v-5.2"/><path d="M21.5 8.5V14"/></svg>`,
+  experience: `<svg viewBox="0 0 24 24" ${S}><rect x="3" y="8" width="18" height="11" rx="2"/><path d="M9 8V6a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2"/></svg>`,
+  activities: `<svg viewBox="0 0 24 24" ${S}><path d="M5 21V4"/><path d="M5 5h11l-2.5 3.5L16 12H5"/></svg>`,
+  skills: `<svg viewBox="0 0 24 24" ${S}><path d="M4 7h16M4 12h16M4 17h16"/><circle cx="14" cy="7" r="2.2" fill="var(--paper)"/><circle cx="8" cy="12" r="2.2" fill="var(--paper)"/><circle cx="16" cy="17" r="2.2" fill="var(--paper)"/></svg>`,
+  projects: `<svg viewBox="0 0 24 24" ${S}><path d="M3 8a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2Z"/></svg>`,
+  channels: `<svg viewBox="0 0 24 24" ${S}><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>`,
+  github: `<svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path fill-rule="evenodd" d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.58.11.79-.25.79-.56 0-.28-.01-1.02-.02-2-3.2.7-3.88-1.54-3.88-1.54-.52-1.33-1.28-1.68-1.28-1.68-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.18 1.76 1.18 1.03 1.75 2.69 1.25 3.34.96.1-.75.4-1.25.72-1.54-2.55-.29-5.23-1.28-5.23-5.68 0-1.26.45-2.28 1.18-3.09-.12-.29-.51-1.46.11-3.05 0 0 .96-.31 3.15 1.18a10.9 10.9 0 0 1 5.74 0c2.18-1.49 3.14-1.18 3.14-1.18.63 1.59.24 2.76.12 3.05.73.81 1.18 1.83 1.18 3.09 0 4.41-2.69 5.38-5.25 5.66.41.35.77 1.05.77 2.12 0 1.53-.01 2.76-.01 3.14 0 .3.2.67.8.55A10.52 10.52 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5Z"/></svg>`,
+  blog: `<svg viewBox="0 0 24 24" ${S}><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>`,
+  mail: `<svg viewBox="0 0 24 24" ${S}><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>`,
+};
+
 const data = {
   ko: {
     hello: '안녕하세요, 데이터로 뭔가 만드는 Qjin입니다.',
@@ -23,7 +36,10 @@ const data = {
       { name: 'KolisMods', tech: 'Python', desc: '국립중앙도서관 국가전거파일 구축. MODS 데이터 수집, 필요한 필드 추출·변환' },
       { name: 'LMM', tech: 'Python · Qt', desc: '국회도서관 문서 DB 구축. 메타데이터 검색, 정확성 자동 검증, CSV·Excel 입출력' },
     ],
-    activity: 'AIS Lab 멤버 · 한국컴퓨터정보학회 동계학술대회 참가 · 2023.11 – 2024.01',
+    activities: [
+      { name: 'AIS Lab', detail: '생성형 AI 활용 아이디어를 만드는 대학 연합 동아리 · 멤버', period: '2023.11 – 2024.01' },
+      { name: '한국컴퓨터정보학회 동계학술대회', detail: '참가', period: '2024.01' },
+    ],
     skills: [
       { name: 'Python', note: '메타데이터 도구, 자동화' },
       { name: 'R', note: '통계 분석 · 시각화' },
@@ -38,6 +54,11 @@ const data = {
       { name: '철도 지연 학위논문', desc: '진행 중', href: '/works/rail-delay-dissertation', status: 'wip' },
     ],
     worksNote: '자세한 기록은',
+    channels: [
+      { label: 'GitHub', href: 'https://github.com/Qjins', icon: 'github' },
+      { label: 'Blog', href: 'https://qjin.tistory.com', icon: 'blog' },
+      { label: 'Mail', href: 'mailto:qjink126@gmail.com', icon: 'mail' },
+    ],
   },
   en: {
     hello: "Hi, I'm Qjin — I make things with data.",
@@ -55,7 +76,10 @@ const data = {
       { name: 'KolisMods', tech: 'Python', desc: 'National Authority File project, National Library of Korea — collects MODS data, extracts and converts required fields' },
       { name: 'LMM', tech: 'Python · Qt', desc: 'Document DB project, National Assembly Library — metadata search, automatic verification, CSV/Excel import·export' },
     ],
-    activity: 'AIS Lab member · Korea Society of Computer and Information winter conference · Nov 2023 – Jan 2024',
+    activities: [
+      { name: 'AIS Lab', detail: 'inter-university club on generative AI ideas · member', period: 'Nov 2023 – Jan 2024' },
+      { name: 'KSCI Winter Conference', detail: 'Korea Society of Computer and Information · participant', period: 'Jan 2024' },
+    ],
     skills: [
       { name: 'Python', note: 'metadata tools, automation' },
       { name: 'R', note: 'statistical analysis · visualisation' },
@@ -70,6 +94,11 @@ const data = {
       { name: 'Rail delay dissertation', desc: 'in progress', href: '/works/rail-delay-dissertation', status: 'wip' },
     ],
     worksNote: 'Full stories in',
+    channels: [
+      { label: 'GitHub', href: 'https://github.com/Qjins', icon: 'github' },
+      { label: 'Blog', href: 'https://qjin.tistory.com', icon: 'blog' },
+      { label: 'Mail', href: 'mailto:qjink126@gmail.com', icon: 'mail' },
+    ],
   },
 }[lang];
 ---
@@ -79,7 +108,7 @@ const data = {
     <p class="hello">{data.hello}</p>
     <p class="sub">{data.sub}</p>
 
-    <h2 class="label">education</h2>
+    <h2 class="label"><span class="ico" set:html={icons.education} /> education</h2>
     <ul class="rows">
       {data.education.map((e) => (
         <li>
@@ -92,7 +121,7 @@ const data = {
       ))}
     </ul>
 
-    <h2 class="label">experience</h2>
+    <h2 class="label"><span class="ico" set:html={icons.experience} /> experience</h2>
     <div class="exp-head">
       <div>
         <strong>{data.company}</strong>
@@ -110,9 +139,21 @@ const data = {
         </li>
       ))}
     </ul>
-    <p class="mono meta activity">{data.activity}</p>
 
-    <h2 class="label">skills</h2>
+    <h2 class="label"><span class="ico" set:html={icons.activities} /> activities</h2>
+    <ul class="rows">
+      {data.activities.map((a) => (
+        <li>
+          <div>
+            <strong>{a.name}</strong>
+            <p class="detail">{a.detail}</p>
+          </div>
+          <span class="mono date">{a.period}</span>
+        </li>
+      ))}
+    </ul>
+
+    <h2 class="label"><span class="ico" set:html={icons.skills} /> skills</h2>
     <ul class="grid skills">
       {data.skills.map((s) => (
         <li class="card">
@@ -122,7 +163,7 @@ const data = {
       ))}
     </ul>
 
-    <h2 class="label">projects</h2>
+    <h2 class="label"><span class="ico" set:html={icons.projects} /> projects</h2>
     <ul class="rows">
       {data.projects.map((w) => (
         <li>
@@ -134,12 +175,15 @@ const data = {
     </ul>
     <p class="detail">{data.worksNote} <a href={p('/works')}>works</a> →</p>
 
-    <h2 class="label">channels</h2>
-    <p class="mono channels">
-      <a href="https://github.com/Qjins" rel="me">github.com/Qjins</a>
-      <a href="https://qjin.tistory.com">qjin.tistory.com</a>
-      <a href="mailto:qjink126@gmail.com">qjink126@gmail.com</a>
-    </p>
+    <h2 class="label"><span class="ico" set:html={icons.channels} /> channels</h2>
+    <div class="chips">
+      {data.channels.map((c) => (
+        <a class="chip" href={c.href} rel={c.icon === 'github' ? 'me' : undefined}>
+          <span class="ico" set:html={icons[c.icon]} />
+          {c.label}
+        </a>
+      ))}
+    </div>
   </main>
 </Base>
 
@@ -148,6 +192,9 @@ const data = {
   .hello { font-size: 1.3rem; font-weight: 500; color: var(--petrol); margin: 2.2rem 0 0.3rem; line-height: 1.5; }
   .sub { color: var(--muted); margin: 0; }
   .detail { color: var(--muted); font-size: 0.95rem; margin: 0.15rem 0 0; }
+  .label { display: flex; align-items: center; gap: 0.5rem; }
+  .ico { display: inline-flex; }
+  .ico :global(svg) { width: 15px; height: 15px; display: block; }
   .rows li { align-items: baseline; }
   .rows .dot { flex-shrink: 0; align-self: center; }
   .rows .date { margin-left: auto; white-space: nowrap; color: var(--muted); }
@@ -158,6 +205,12 @@ const data = {
   .card { border: 1px solid var(--line); border-radius: 6px; padding: 0.8rem 1rem; }
   .card .mono.meta { margin-left: 0.5rem; }
   .skills .card { padding: 0.6rem 1rem; }
-  .activity { margin: 0.9rem 0 0; }
-  .channels { display: flex; flex-wrap: wrap; gap: 1.2rem; font-size: 0.85rem; }
+  .chips { display: flex; flex-wrap: wrap; gap: 0.6rem; }
+  .chip {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    border: 1px solid var(--line); border-radius: 999px;
+    padding: 0.45rem 1rem; text-decoration: none; font-size: 0.9rem;
+  }
+  .chip:hover { border-color: var(--coral); color: var(--coral); }
+  .chip .ico :global(svg) { width: 16px; height: 16px; }
 </style>
