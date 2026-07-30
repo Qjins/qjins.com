@@ -28,6 +28,11 @@ const dict = {
   },
   nowDesc: { ko: '요즘 하는 일', en: 'What I am up to now' },
   aboutDesc: { ko: '만드는 사람 소개', en: 'About the person behind the studio' },
+  aboutTeaser: {
+    ko: '데이터베이스 구축 현장에서 4년, 지금은 University of Sheffield에서 MSc Data Science 과정 중.',
+    en: 'Four years building databases in the field; now an MSc Data Science student at the University of Sheffield.',
+  },
+  aboutMore: { ko: '자세한 소개', en: 'more about me' },
   blogDesc: {
     ko: '티스토리(괴발일기)에 쓰는 글. 제목을 누르면 원문으로 이동합니다.',
     en: 'Posts from my Tistory blog, written in Korean. Titles link to the original.',

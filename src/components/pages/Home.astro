@@ -4,6 +4,7 @@ import Pulse from '../Pulse.astro';
 import { services } from '../../config/services';
 import { getWorks, getNotes, slugOf } from '../../lib/content';
 import { t, localePath, type Lang } from '../../lib/i18n';
+import { icons, channelLinks } from '../../lib/icons';
 
 interface Props { lang: Lang }
 const { lang } = Astro.props;
@@ -27,7 +28,13 @@ const fmt = (d: Date) => d.toISOString().slice(0, 10);
 
     <div class="home-grid">
       <section>
-        <h2 class="label">services</h2>
+        <h2 class="label"><span class="ico" set:html={icons.user} /> about</h2>
+        <p class="teaser">
+          {t(lang, 'aboutTeaser')}
+          <a href={localePath(lang, '/about')}>{t(lang, 'aboutMore')} →</a>
+        </p>
+
+        <h2 class="label"><span class="ico" set:html={icons.services} /> services</h2>
         {services.length === 0 ? (
           <p class="empty">{t(lang, 'servicesEmpty')}</p>
         ) : (
@@ -45,14 +52,19 @@ const fmt = (d: Date) => d.toISOString().slice(0, 10);
           </ul>
         )}
 
-        <h2 class="label">contact</h2>
-        <p class="mono contact">
-          <a href="mailto:qjink126@gmail.com">qjink126@gmail.com</a> · <a href="https://github.com/Qjins" rel="me">github</a>
-        </p>
+        <h2 class="label"><span class="ico" set:html={icons.channels} /> channels</h2>
+        <div class="chips">
+          {channelLinks.map((c) => (
+            <a class="chip" href={c.href} rel={c.icon === 'github' ? 'me' : undefined}>
+              <span class="ico" set:html={icons[c.icon]} />
+              {c.label}
+            </a>
+          ))}
+        </div>
       </section>
 
       <section>
-        <h2 class="label">recent</h2>
+        <h2 class="label"><span class="ico" set:html={icons.recent} /> recent</h2>
         <ul class="rows">
           {recent.map((r) => (
             <li>
@@ -79,5 +91,6 @@ const fmt = (d: Date) => d.toISOString().slice(0, 10);
   .cards .dot { margin-right: 0.5rem; }
   .cards .mono.meta { margin-left: 0.5rem; }
   .kind { width: 2.6rem; flex-shrink: 0; }
-  .contact { font-size: 0.9rem; }
+  .teaser { margin: 0; }
+  .teaser a { margin-left: 0.4rem; text-decoration-color: var(--coral); white-space: nowrap; }
 </style>
