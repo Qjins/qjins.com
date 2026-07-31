@@ -18,13 +18,76 @@ const points = toPoints(pulse.values, W, H, 12);
     <polyline points={points} transform="translate(3,3)" fill="none" stroke="var(--charcoal)" stroke-width="2.5" opacity="0.5" stroke-linejoin="round" stroke-linecap="round" />
     <polyline points={points} fill="none" stroke="var(--coral)" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round" />
   </svg>
+  <div class="dino-track">
+    <button class="dino" id="dino" aria-label={lang === 'ko' ? '공룡 점프' : 'dino jump'} title={lang === 'ko' ? '딸깍' : 'click'}></button>
+  </div>
   <p class="mono caption">
     {pulse.ok ? `${pulse.updated} · ${pulse.label}` : t(lang, 'pulseNoSignal')}
   </p>
 </section>
 
+<script>
+  const dino = document.getElementById('dino');
+  dino?.addEventListener('click', () => {
+    dino.classList.remove('jump');
+    void dino.offsetWidth;
+    dino.classList.add('jump');
+  });
+  dino?.addEventListener('animationend', (e) => {
+    if (e.animationName.includes('dino-jump')) dino.classList.remove('jump');
+  });
+</script>
+
 <style>
-  .pulse { padding: 1.5rem 0 0; }
+  .pulse { padding: 1.5rem 0 0; position: relative; }
   svg { display: block; width: 100vw; margin-left: calc(50% - 50vw); height: 110px; }
   .caption { margin: 0.4rem 0 0; color: var(--muted); }
+
+  /* 크롬 공룡 (Chromium BSD 스프라이트, public/dino-sprite-LICENSE.txt) */
+  .dino-track {
+    position: absolute;
+    left: calc(50% - 50vw);
+    top: calc(1.5rem + 110px - 47px);
+    width: 100vw;
+    height: 47px;
+    overflow: hidden;
+    pointer-events: none;
+  }
+  .dino {
+    position: absolute;
+    bottom: 0;
+    left: -50px;
+    width: 44px;
+    height: 47px;
+    padding: 0;
+    border: 0;
+    background: transparent url('/dino-sprite.png') no-repeat -936px -2px;
+    image-rendering: pixelated;
+    cursor: pointer;
+    pointer-events: auto;
+    animation: dino-walk 55s linear infinite, dino-run 0.32s steps(1) infinite;
+  }
+  .dino.jump {
+    animation: dino-jump 0.55s cubic-bezier(0.3, 0, 0.4, 1), dino-walk 55s linear infinite, dino-run 0.32s steps(1) infinite;
+  }
+  @keyframes dino-run {
+    0%, 100% { background-position: -936px -2px; }
+    50% { background-position: -980px -2px; }
+  }
+  @keyframes dino-walk {
+    from { transform: translateX(0); }
+    to { transform: translateX(calc(100vw + 100px)); }
+  }
+  @keyframes dino-jump {
+    0% { bottom: 0; }
+    50% { bottom: 52px; }
+    100% { bottom: 0; }
+  }
+  :global(:root[data-theme='dark']) .dino { filter: invert(1); }
+  @media (prefers-color-scheme: dark) {
+    :global(:root:not([data-theme='light'])) .dino { filter: invert(1); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .dino, .dino.jump { animation: none; left: 8px; }
+  }
 </style>

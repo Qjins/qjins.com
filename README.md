@@ -97,3 +97,8 @@ HTML에 수동 스니펫을 추가하면 이중 집계되니 넣지 말 것.
 3. SSL은 자동 발급. 전파까지 보통 몇 분
 4. 서브도메인 서비스를 붙일 땐 각 서비스에서 `app.qjins.com` 등을
    같은 방식으로 Custom domain으로 추가하면 됨
+
+## 크레딧
+
+- 홈의 공룡: Chromium 프로젝트의 오프라인 공룡 스프라이트 (BSD,
+  `public/dino-sprite-LICENSE.txt`)
