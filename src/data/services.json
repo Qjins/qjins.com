@@ -1,0 +1,15 @@
+{
+  "list": [
+    {
+      "name": "QRA",
+      "description": {
+        "ko": "여러 컴퓨터를 브라우저에서 관리하고 원격 화면을 조작하는 웹 기반 원격 제어 플랫폼",
+        "en": "Web-based remote access platform. Manage machines and control their screens from the browser"
+      },
+      "url": "https://qra.qjins.com",
+      "work": "qra",
+      "zone": "app",
+      "status": "live"
+    }
+  ]
+}

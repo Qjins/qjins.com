@@ -2,6 +2,7 @@
 import Base from '../../layouts/Base.astro';
 import { loadBlog, BLOG_URL } from '../../lib/blog';
 import { t, type Lang } from '../../lib/i18n';
+import EditLink from '../EditLink.astro';
 
 interface Props { lang: Lang }
 const { lang } = Astro.props;
@@ -9,7 +10,7 @@ const { ok, posts } = await loadBlog();
 ---
 <Base lang={lang} title="blog" description={t(lang, 'blogDesc')}>
   <main class="wrap">
-    <h1>blog</h1>
+    <h1>blog <EditLink item="singleton/ui" /></h1>
     <p class="meta">{t(lang, 'blogDesc')}</p>
     {!ok ? (
       <p class="empty">{t(lang, 'blogFail')} <a href={BLOG_URL}>qjin.tistory.com</a></p>

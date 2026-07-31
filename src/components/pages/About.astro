@@ -2,95 +2,19 @@
 import Base from '../../layouts/Base.astro';
 import { t, type Lang } from '../../lib/i18n';
 import { icons, channelLinks } from '../../lib/icons';
+import EditLink from '../EditLink.astro';
+import aboutKo from '../../data/about.ko.json';
+import aboutEn from '../../data/about.en.json';
 
 interface Props { lang: Lang }
 const { lang } = Astro.props;
 const p = (path: string) => (lang === 'en' ? `/en${path}` : path);
 
-const data = {
-  ko: {
-    hello: '안녕하세요, 데이터로 뭔가 만드는 <strong class="name">Qjin</strong>입니다.',
-    sub: '영국에서 데이터 사이언스를 공부하면서, 틈틈이 이것저것 만듭니다.',
-    education: [
-      { school: 'University of Sheffield', degree: 'MSc Data Science', period: '2025 –' },
-      { school: '한국공학대학교', degree: '컴퓨터전자공학 학사 · 일학습병행', period: '2020 – 2024' },
-    ],
-    company: 'MetaSysnet',
-    role: 'Database Division Manager · Seoul',
-    period: '2020.01 – 2024.02',
-    summary: '국가 기관 데이터 구축 프로젝트에서 데이터 파이프라인과 현장 도구를 개발. IoT 원격 제어, 대규모 비정형 데이터 정리, 팀 리더로 프로젝트·인력 운영.',
-    workProjects: [
-      { name: 'DAMP', tech: 'C#', desc: '미술 기록물 디지털화·보존 프로젝트 관리 프로그램. 데이터 정제·배포·검수, 관리자 통계, 실시간 관리' },
-      { name: 'KolisMods', tech: 'Python', desc: '국립중앙도서관 국가전거파일 구축. MODS 데이터 수집, 필요한 필드 추출·변환' },
-      { name: 'LMM', tech: 'Python · Qt', desc: '국회도서관 문서 DB 구축. 메타데이터 검색, 정확성 자동 검증, CSV·Excel 입출력' },
-    ],
-    activities: [
-      {
-        name: '지하철역 혼잡도 예측 모델 연구',
-        detail: '딥러닝(MLP) 기반 혼잡도 동적 분석·예측. 한국컴퓨터정보학회 동계학술대회 논문, AIS Lab(대학 연합 동아리) 활동으로 진행',
-        period: '2023.11 – 2024.01',
-      },
-    ],
-    skills: [
-      { name: 'Python', note: 'pandas · scikit-learn · TensorFlow' },
-      { name: 'R', note: 'tidyverse · ggplot2, 통계 분석' },
-      { name: 'SQL · Database', note: 'Oracle SQL, 서지 DB 구축 · 운영' },
-      { name: 'C# · Qt', note: 'PyQt · PySide, 현장용 데스크톱 도구' },
-      { name: 'TypeScript · Web', note: 'Astro, Next.js' },
-      { name: 'Tools', note: 'Git · GitHub Actions · Cloudflare · Jupyter' },
-    ],
-    projects: [
-      { name: 'QRA', desc: '웹 기반 원격 제어 플랫폼', href: '/works/qra', status: 'live' },
-      { name: '영국 철도 회복 분석', desc: '코로나 이후 회복의 지역 불균형', href: '/works/uk-rail-recovery', status: 'archived' },
-      { name: '철도 지연 학위논문', desc: '진행 중', href: '/works/rail-delay-dissertation', status: 'wip' },
-    ],
-    worksNote: '자세한 기록은',
-    coursework: '그 외 코스워크: SDG 11 도시 데이터 분석, 비즈니스 인텔리전스(The Gym Group), Ames Housing 머신러닝',
-  },
-  en: {
-    hello: 'Hi, I\'m <strong class="name">Qjin</strong>. I make things with data.',
-    sub: "I'm studying data science in the UK and building things on the side.",
-    education: [
-      { school: 'University of Sheffield', degree: 'MSc Data Science', period: '2025 –' },
-      { school: 'Tech University of Korea', degree: 'BSc Computer and Electronics Engineering · work-study programme', period: '2020 – 2024' },
-    ],
-    company: 'MetaSysnet',
-    role: 'Database Division Manager · Seoul',
-    period: 'Jan 2020 – Feb 2024',
-    summary: 'Built data pipelines and field tools for national data construction projects. IoT remote control, large-scale unstructured data, project and people management as team lead.',
-    workProjects: [
-      { name: 'DAMP', tech: 'C#', desc: 'Management program for an art-records digitisation project: data refinement, distribution, inspection, admin statistics, real-time oversight' },
-      { name: 'KolisMods', tech: 'Python', desc: 'National Authority File project, National Library of Korea. Collects MODS data, extracts and converts required fields' },
-      { name: 'LMM', tech: 'Python · Qt', desc: 'Document DB project, National Assembly Library. Metadata search, automatic verification, CSV/Excel import·export' },
-    ],
-    activities: [
-      {
-        name: 'Subway congestion prediction model',
-        detail: 'Deep-learning (MLP) dynamic analysis and prediction of station congestion. Paper at the KSCI winter conference, done through AIS Lab, an inter-university club',
-        period: 'Nov 2023 – Jan 2024',
-      },
-    ],
-    skills: [
-      { name: 'Python', note: 'pandas · scikit-learn · TensorFlow' },
-      { name: 'R', note: 'tidyverse · ggplot2, statistics' },
-      { name: 'SQL · Database', note: 'Oracle SQL, bibliographic DBs' },
-      { name: 'C# · Qt', note: 'PyQt · PySide, field desktop tools' },
-      { name: 'TypeScript · Web', note: 'Astro, Next.js' },
-      { name: 'Tools', note: 'Git · GitHub Actions · Cloudflare · Jupyter' },
-    ],
-    projects: [
-      { name: 'QRA', desc: 'web-based remote access platform', href: '/works/qra', status: 'live' },
-      { name: 'The uneven recovery of UK rail', desc: 'what the national average hides', href: '/works/uk-rail-recovery', status: 'archived' },
-      { name: 'Rail delay dissertation', desc: 'in progress', href: '/works/rail-delay-dissertation', status: 'wip' },
-    ],
-    worksNote: 'Full stories in',
-    coursework: 'Also coursework: SDG 11 urban data analysis, business intelligence (The Gym Group), Ames Housing machine learning',
-  },
-}[lang];
+const data = lang === 'ko' ? aboutKo : aboutEn;
 ---
 <Base lang={lang} title="about" description={t(lang, 'aboutDesc')}>
   <main class="wrap narrow" style="margin-inline: auto;">
-    <h1>about</h1>
+    <h1>about <EditLink item={lang === 'en' ? 'singleton/aboutEn' : 'singleton/aboutKo'} /></h1>
     <p class="hello" set:html={data.hello} />
     <p class="sub">{data.sub}</p>
 

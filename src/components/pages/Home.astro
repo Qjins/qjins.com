@@ -5,6 +5,7 @@ import { services } from '../../config/services';
 import { getWorks, getNotes, slugOf } from '../../lib/content';
 import { t, localePath, type Lang } from '../../lib/i18n';
 import { icons, channelLinks } from '../../lib/icons';
+import EditLink from '../EditLink.astro';
 
 interface Props { lang: Lang }
 const { lang } = Astro.props;
@@ -24,7 +25,7 @@ const fmt = (d: Date) => d.toISOString().slice(0, 10);
   <div class="wrap">
     <Pulse lang={lang} />
 
-    <p class="intro" set:html={t(lang, 'introHtml')} />
+    <p class="intro"><Fragment set:html={t(lang, 'introHtml')} /><EditLink item="singleton/ui" /></p>
 
     <div class="home-grid">
       <section>
@@ -32,9 +33,10 @@ const fmt = (d: Date) => d.toISOString().slice(0, 10);
         <p class="teaser">
           <span set:html={t(lang, 'aboutTeaser')} />
           <a href={localePath(lang, '/about')}>{t(lang, 'aboutMore')} →</a>
+          <EditLink item="singleton/ui" />
         </p>
 
-        <h2 class="label"><span class="ico" set:html={icons.services} /> services</h2>
+        <h2 class="label"><span class="ico" set:html={icons.services} /> services <EditLink item="singleton/services" /></h2>
         {services.length === 0 ? (
           <p class="empty">{t(lang, 'servicesEmpty')}</p>
         ) : (

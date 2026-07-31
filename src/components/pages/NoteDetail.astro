@@ -1,7 +1,8 @@
 ---
 import { render, type CollectionEntry } from 'astro:content';
 import Base from '../../layouts/Base.astro';
-import { langOf } from '../../lib/content';
+import { langOf, slugOf } from '../../lib/content';
+import EditLink from '../EditLink.astro';
 import type { Lang } from '../../lib/i18n';
 
 interface Props { lang: Lang; entry: CollectionEntry<'notes'> }
@@ -13,7 +14,7 @@ const fmt = (d: Date) => d.toISOString().slice(0, 10);
   <main class="wrap narrow" style="margin-inline: auto;">
     <header class="head">
       <p class="mono meta">{fmt(entry.data.date)}{lang === 'en' && langOf(entry) === 'ko' && ' · ko'}</p>
-      <h1>{entry.data.title}</h1>
+      <h1>{entry.data.title} <EditLink item={`collection/notes${langOf(entry) === 'en' ? 'En' : 'Ko'}/item/${slugOf(entry)}`} /></h1>
     </header>
     <article class="prose" lang={langOf(entry)}>
       <Content />

@@ -4,7 +4,7 @@
  *   lab.qjins.com    — 실험, 데모, 프로토타입 (zone: 'lab')
  *   api.qjins.com    — 공용 API (zone: 'api')
  *
- * 서비스 추가 = 이 배열에 항목 하나. 홈(한/영)이 이걸 읽어서 렌더링한다.
+ * 서비스 목록은 src/data/services.json (CMS에서 편집 가능).
  */
 export type Zone = 'app' | 'lab' | 'api';
 export type ServiceStatus = 'live' | 'wip' | 'archived';
@@ -19,16 +19,6 @@ export interface Service {
   status: ServiceStatus;
 }
 
-export const services: Service[] = [
-  {
-    name: 'QRA',
-    description: {
-      ko: '여러 컴퓨터를 브라우저에서 관리하고 원격 화면을 조작하는 웹 기반 원격 제어 플랫폼',
-      en: 'Web-based remote access platform — manage machines and control their screens from the browser',
-    },
-    url: 'https://qra.qjins.com',
-    work: 'qra',
-    zone: 'app',
-    status: 'live',
-  },
-];
+import data from '../data/services.json';
+
+export const services: Service[] = data.list as Service[];

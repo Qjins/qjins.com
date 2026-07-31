@@ -5,6 +5,7 @@ import { statSync } from 'node:fs';
 import { join } from 'node:path';
 import Base from '../../layouts/Base.astro';
 import { t, type Lang } from '../../lib/i18n';
+import EditLink from '../EditLink.astro';
 
 interface Props { lang: Lang }
 const { lang } = Astro.props;
@@ -27,7 +28,7 @@ if (!updated) {
 ---
 <Base lang={lang} title="now" description={t(lang, 'nowDesc')}>
   <main class="wrap narrow" style="margin-inline: auto;">
-    <h1>now</h1>
+    <h1>now <EditLink item={entry.id === 'en' ? 'singleton/nowEn' : 'singleton/nowKo'} /></h1>
     {updated && <p class="mono meta">{t(lang, 'lastUpdated')} {updated}</p>}
     <article class="prose">
       <Content />
