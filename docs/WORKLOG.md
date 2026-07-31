@@ -80,3 +80,18 @@
 CMS를 배포 버전(호스팅 모드)으로 확장할 때는 **반드시 본인 계정만 접근
 가능한 로그인**을 먼저 구현한다. 인증 없는 호스팅 CMS 배포 금지.
 권장 경로: Keystatic GitHub 모드(GitHub App, 저장소 쓰기 권한이 곧 접근 통제).
+
+## 2026-07-31 호스팅 CMS 완성
+
+- Keystatic GitHub 모드 배포: qjins.com/keystatic에서 GitHub 로그인(App:
+  qjins-keystatic, 본인 계정·저장소에만 설치) 후 편집하면 자동 커밋·자동 배포
+- 구조: @astrojs/cloudflare@12(Astro 5 호환) 어댑터, 페이지는 전부 프리렌더
+  유지, Keystatic 라우트만 Worker SSR. 시크릿은 wrangler secret 3종,
+  앱 슬러그는 wrangler vars
+- 함정 기록: 최신 wrangler는 dist 안의 _worker.js를 에셋으로 올리는 걸
+  거부한다. public/.assetsignore(_worker.js, _routes.json)로 해결
+- GitHub App은 생성과 "설치"가 별개다. 설치 후 로컬로 리다이렉트되며 뜨는
+  연결 거부 화면은 무해함
+- 진입·복귀 동선: 푸터 login 링크, 편집 화면 우하단 "qjins.com" 복귀 버튼
+  (미들웨어가 /keystatic HTML에 주입), 배포판 연필은 #edit/#editoff 스위치
+- 첫 호스팅 편집 커밋: "Update src/data/about.ko" (회사명 메타시스넷)
