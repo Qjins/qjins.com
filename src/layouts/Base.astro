@@ -64,6 +64,12 @@ const enPath = lang === 'en' ? path : switchPath(path);
     </footer>
 
     <script is:inline>
+      // 편집 연필 스위치 (본인용): #edit 로 켜고 #editoff 로 끔.
+      // 연필은 링크일 뿐이고, 실제 편집은 Keystatic GitHub 로그인을 통과해야 한다.
+      if (location.hash === '#edit') localStorage.setItem('qjins-edit', '1');
+      if (location.hash === '#editoff') localStorage.removeItem('qjins-edit');
+      if (localStorage.getItem('qjins-edit')) document.documentElement.classList.add('edit-mode');
+
       // 세션 한정 테마 토글. localStorage 없음. 새로고침하면 prefers-color-scheme으로 복귀.
       document.getElementById('theme-toggle')?.addEventListener('click', () => {
         const root = document.documentElement;

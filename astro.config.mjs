@@ -1,16 +1,16 @@
 import { defineConfig } from 'astro/config';
 import react from '@astrojs/react';
 import keystatic from '@keystatic/astro';
+import cloudflare from '@astrojs/cloudflare';
 import { worksContract } from './src/lib/remark-works-contract.mjs';
 
-// 완전한 정적 사이트. 배포: npm run build → dist/ (Cloudflare Workers 정적 에셋)
-// 관리자 편집 UI(Keystatic)는 로컬 dev 전용: npm run cms → /keystatic
-const CMS = !!process.env.KEYSTATIC;
-
+// 페이지는 전부 프리렌더(정적), Keystatic 라우트만 Worker에서 서버 렌더.
+// 로컬 dev = local 스토리지(파일 직접 저장), 배포 = GitHub 모드(본인 계정 로그인 필수).
 export default defineConfig({
   site: 'https://qjins.com',
   output: 'static',
-  integrations: CMS ? [react(), keystatic()] : [],
+  adapter: cloudflare(),
+  integrations: [react(), keystatic()],
   markdown: {
     remarkPlugins: [worksContract],
   },

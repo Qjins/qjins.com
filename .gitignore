@@ -3,6 +3,8 @@ dist/
 .astro/
 .claude/
 .DS_Store
+.env
+.env.*
 
 # 개인 프로필 노트 — public 저장소에 올리지 않음
 docs/PROFILE.md

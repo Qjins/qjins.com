@@ -99,8 +99,12 @@ const aboutSchema = {
   coursework: fields.text({ label: '코스워크 한 줄', multiline: true }),
 };
 
+const useGitHub = !import.meta.env.DEV || import.meta.env.PUBLIC_KEYSTATIC_GITHUB;
+
 export default config({
-  storage: { kind: 'local' },
+  storage: useGitHub
+    ? { kind: 'github', repo: { owner: 'Qjins', name: 'qjins.com' } }
+    : { kind: 'local' },
   ui: { brand: { name: 'qjins.com' } },
   collections: {
     worksKo: collection({
