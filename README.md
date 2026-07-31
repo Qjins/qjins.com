@@ -39,6 +39,18 @@ url: https://...   # 선택
 빌드가 실패합니다. 영어 문서는 `Background / Design / Trial and error /
 Outcome` 네 섹션. 검증: `src/lib/remark-works-contract.mjs`.
 
+## 관리자 편집 UI (Keystatic, 로컬 모드)
+
+```bash
+npm run cms
+```
+
+실행 후 http://localhost:4321/keystatic 에서 works/notes/now를
+브라우저로 편집한다. 저장하면 md 파일로 떨어지므로, 확인 후
+`git push` 하면 배포된다. 프로덕션 빌드에는 포함되지 않는다
+(`KEYSTATIC` 환경변수로 dev에서만 켜짐 · `astro.config.mjs`).
+어디서든 접속하는 호스팅 모드(GitHub 로그인)는 필요해지면 확장.
+
 ## 새 노트 추가하는 법
 
 `src/content/notes/ko/` 에 md 파일 하나. frontmatter는 `title`, `date` 두 개면 끝.

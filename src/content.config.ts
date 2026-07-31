@@ -9,7 +9,7 @@ const works = defineCollection({
     summary: z.string(),
     date: z.coerce.date(),
     status: z.enum(['live', 'wip', 'archived']).default('archived'),
-    url: z.string().url().optional(),
+    url: z.string().url().optional().or(z.literal('')),
   }),
 });
 
