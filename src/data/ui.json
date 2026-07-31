@@ -8,8 +8,8 @@
     "en": "A one-person studio making things with data"
   },
   "introHtml": {
-    "ko": "안녕하세요, 데이터로 뭔가 만드는 <strong class=\"name\">Qjin</strong>입니다.<br />영국에서 데이터 사이언스를 공부하면서, 틈틈이 <a class=\"hl\" href=\"/works\">이것저것</a> 만듭니다.",
-    "en": "Hi, I'm <strong class=\"name\">Qjin</strong>. I make things with data.<br />I'm studying data science in the UK and building <a class=\"hl\" href=\"/en/works\">things</a> on the side."
+    "ko": "안녕하세요, 데이터로 뭔가 만드는 <strong class=\"name\">Qjin</strong>입니다.<br />데이터 사이언스를 공부하면서, 틈틈이 <a class=\"hl\" href=\"/works\">이것저것</a> 만듭니다.",
+    "en": "Hi, I'm <strong class=\"name\">Qjin</strong>. I make things with data.<br />I'm studying data science and building <a class=\"hl\" href=\"/en/works\">things</a> on the side."
   },
   "servicesEmpty": {
     "ko": "아직 없음. 첫 서비스가 lab에서 만들어지는 중입니다. 완성되면 여기에 걸립니다.",
@@ -23,13 +23,22 @@
     "ko": "짧은 기록. 삽질 로그, 라이브러리 함정, 3줄 메모.",
     "en": "Short notes. Debugging logs, library gotchas, three-line memos."
   },
-  "nowDesc": { "ko": "요즘 하는 일", "en": "What I am up to now" },
-  "aboutDesc": { "ko": "만드는 사람 소개", "en": "About the person behind the studio" },
+  "nowDesc": {
+    "ko": "요즘 하는 일",
+    "en": "What I am up to now"
+  },
+  "aboutDesc": {
+    "ko": "만드는 사람 소개",
+    "en": "About the person behind the studio"
+  },
   "aboutTeaser": {
     "ko": "세상의 번거로운 일을 데이터로 따져보고, <em class=\"tick\">딸깍 한 번</em>으로 끝나게 만듭니다.",
     "en": "The world's tedious chores: examined with data, finished with <em class=\"tick\">one click</em>."
   },
-  "aboutMore": { "ko": "자세한 소개", "en": "more about me" },
+  "aboutMore": {
+    "ko": "자세한 소개",
+    "en": "more about me"
+  },
   "blogDesc": {
     "ko": "티스토리(괴발일기)에 쓰는 글. 제목을 누르면 원문으로 이동합니다.",
     "en": "Posts from my Tistory blog, written in Korean. Titles link to the original."
@@ -38,8 +47,19 @@
     "ko": "목록을 불러오지 못했습니다. 티스토리에서 직접 볼 수 있습니다:",
     "en": "Couldn't load the feed. You can read directly on Tistory:"
   },
-  "lastUpdated": { "ko": "마지막 수정", "en": "last updated" },
-  "pulseTitle": { "ko": "오늘의 펄스", "en": "Today's pulse" },
-  "pulseNoSignal": { "ko": "NO SIGNAL · pulse.json 없음", "en": "NO SIGNAL · missing pulse.json" },
-  "koOnly": { "ko": "", "en": "ko" }
+  "lastUpdated": {
+    "ko": "마지막 수정",
+    "en": "last updated"
+  },
+  "pulseTitle": {
+    "ko": "오늘의 펄스",
+    "en": "Today's pulse"
+  },
+  "pulseNoSignal": {
+    "ko": "NO SIGNAL · pulse.json 없음",
+    "en": "NO SIGNAL · missing pulse.json"
+  },
+  "koOnly": {
+    "en": "ko"
+  }
 }

@@ -1,6 +1,7 @@
 ---
 // 시그니처: 오늘의 펄스. 로고와 같은 오프셋(판 어긋남) 스타일 —
 // 차콜 판이 (3,3) 어긋나게 깔리고 코랄 파형이 위에 올라간다.
+// 크롬 공룡이 파형 지형을 따라 올라갔다 내려오며 달린다 (딸깍 = 점프).
 import { loadPulse, toPoints } from '../lib/pulse';
 import { t, type Lang } from '../lib/i18n';
 
@@ -10,6 +11,7 @@ const pulse = loadPulse();
 const W = 720;
 const H = 96;
 const points = toPoints(pulse.values, W, H, 12);
+const guideD = 'M ' + points.split(' ').join(' L ');
 ---
 <section class="pulse" aria-label={t(lang, 'pulseTitle')}>
   <svg viewBox={`0 0 ${W} ${H}`} preserveAspectRatio="none" role="img">
@@ -17,8 +19,9 @@ const points = toPoints(pulse.values, W, H, 12);
     <desc>{pulse.ok ? pulse.label : 'no data'}</desc>
     <polyline points={points} transform="translate(3,3)" fill="none" stroke="var(--charcoal)" stroke-width="2.5" opacity="0.5" stroke-linejoin="round" stroke-linecap="round" />
     <polyline points={points} fill="none" stroke="var(--coral)" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round" />
+    <path id="pulse-guide" d={guideD} fill="none" stroke="none" />
   </svg>
-  <div class="dino-track">
+  <div class="dino-layer" id="dino-layer">
     <button class="dino" id="dino" aria-label={lang === 'ko' ? '공룡 점프' : 'dino jump'} title={lang === 'ko' ? '딸깍' : 'click'}></button>
   </div>
   <p class="mono caption">
@@ -28,14 +31,38 @@ const points = toPoints(pulse.values, W, H, 12);
 
 <script>
   const dino = document.getElementById('dino');
-  dino?.addEventListener('click', () => {
-    dino.classList.remove('jump');
-    void dino.offsetWidth;
-    dino.classList.add('jump');
-  });
-  dino?.addEventListener('animationend', (e) => {
-    if (e.animationName.includes('dino-jump')) dino.classList.remove('jump');
-  });
+  const guide = document.getElementById('pulse-guide') as unknown as SVGPathElement | null;
+  const layer = document.getElementById('dino-layer');
+
+  if (dino && guide && layer) {
+    dino.addEventListener('click', () => {
+      dino.classList.remove('jump');
+      void dino.offsetWidth;
+      dino.classList.add('jump');
+    });
+    dino.addEventListener('animationend', (e) => {
+      if (e.animationName.includes('dino-jump')) dino.classList.remove('jump');
+    });
+
+    // 파형 지형 추적: 경로 위 현재 지점의 (x, y)에 발을 맞춘다
+    const total = guide.getTotalLength();
+    const DURATION = 18000;
+    const place = (len: number) => {
+      const pt = guide.getPointAtLength(len);
+      dino.style.left = `${(pt.x / 720) * layer.clientWidth - 11}px`;
+      dino.style.top = `${(pt.y / 96) * layer.clientHeight - 21}px`;
+    };
+    if (matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      place(total * 0.08);
+    } else {
+      const t0 = performance.now();
+      const step = (now: number) => {
+        place((((now - t0) % DURATION) / DURATION) * total);
+        requestAnimationFrame(step);
+      };
+      requestAnimationFrame(step);
+    }
+  }
 </script>
 
 <style>
@@ -44,50 +71,46 @@ const points = toPoints(pulse.values, W, H, 12);
   .caption { margin: 0.4rem 0 0; color: var(--muted); }
 
   /* 크롬 공룡 (Chromium BSD 스프라이트, public/dino-sprite-LICENSE.txt) */
-  .dino-track {
+  .dino-layer {
     position: absolute;
+    top: 1.5rem;
     left: calc(50% - 50vw);
-    top: calc(1.5rem + 110px - 47px);
     width: 100vw;
-    height: 47px;
-    overflow: hidden;
+    height: 110px;
     pointer-events: none;
   }
   .dino {
     position: absolute;
-    bottom: 0;
-    left: -50px;
-    width: 44px;
-    height: 47px;
+    left: -30px;
+    top: 0;
+    width: 22px;
+    height: 23.5px;
     padding: 0;
     border: 0;
-    background: transparent url('/dino-sprite.png') no-repeat -936px -2px;
+    background: transparent url('/dino-sprite.png') no-repeat -468px -1px;
+    background-size: 616.5px 34px;
     image-rendering: pixelated;
     cursor: pointer;
     pointer-events: auto;
-    animation: dino-walk 55s linear infinite, dino-run 0.32s steps(1) infinite;
+    animation: dino-run 0.24s steps(1) infinite;
   }
   .dino.jump {
-    animation: dino-jump 0.55s cubic-bezier(0.3, 0, 0.4, 1), dino-walk 55s linear infinite, dino-run 0.32s steps(1) infinite;
+    animation: dino-jump 0.5s cubic-bezier(0.3, 0, 0.4, 1), dino-run 0.24s steps(1) infinite;
   }
   @keyframes dino-run {
-    0%, 100% { background-position: -936px -2px; }
-    50% { background-position: -980px -2px; }
-  }
-  @keyframes dino-walk {
-    from { transform: translateX(0); }
-    to { transform: translateX(calc(100vw + 100px)); }
+    0%, 100% { background-position: -468px -1px; }
+    50% { background-position: -490px -1px; }
   }
   @keyframes dino-jump {
-    0% { bottom: 0; }
-    50% { bottom: 52px; }
-    100% { bottom: 0; }
+    0% { transform: translateY(0); }
+    50% { transform: translateY(-34px); }
+    100% { transform: translateY(0); }
   }
   :global(:root[data-theme='dark']) .dino { filter: invert(1); }
   @media (prefers-color-scheme: dark) {
     :global(:root:not([data-theme='light'])) .dino { filter: invert(1); }
   }
   @media (prefers-reduced-motion: reduce) {
-    .dino, .dino.jump { animation: none; left: 8px; }
+    .dino, .dino.jump { animation: none; }
   }
 </style>

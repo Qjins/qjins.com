@@ -6,7 +6,7 @@ export const LANGS: Lang[] = ['ko', 'en'];
 const dict = ui;
 
 export type StringKey = keyof typeof dict;
-export const t = (lang: Lang, key: StringKey): string => dict[key][lang];
+export const t = (lang: Lang, key: StringKey): string => (dict[key] as Partial<Record<Lang, string>>)[lang] ?? '';
 
 /** 해당 로케일의 경로. ko는 그대로, en은 /en 접두 */
 export const localePath = (lang: Lang, path: string): string =>
