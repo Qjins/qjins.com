@@ -1,39 +1,40 @@
 ---
 title: Delay patterns in UK rail (dissertation)
-summary: MSc Data Science dissertation on temporal patterns of delays, cancellations and service reliability in UK rail — in progress
+summary: MSc Data Science dissertation on temporal patterns of delays, cancellations and service reliability in UK rail. In progress
 date: 2026-03-22
 status: wip
 ---
 
-## What was the problem
+## Background
 
-What passengers actually feel is not the average delay — it's the
-reliability of their hour, their operator. The topic: what patterns do UK
-rail delays and cancellations show across time of day, period and train
-operating company, and how far can public data alone take that question?
+What passengers actually feel is not the average delay. It is the
+reliability of their hour and their operator. The topic: what patterns do
+UK rail delays and cancellations show across time of day, period and
+train operating company, and how far can public data alone take that
+question?
 
-## What approach I took
+## Design
 
-Built on ORR public statistics, layered in order: descriptive statistics →
-temporal trend analysis → cross-operator comparison → an interactive
+Built on ORR public statistics, layered in order: descriptive statistics,
+temporal trend analysis, cross-operator comparison, then an interactive
 dashboard. All in R. Deliberately no causal inference or forecasting from
-the start — first pin down the questions public data can answer honestly
-(describing and comparing patterns), then decide whether supplementary data
-like weather earns its place on top.
+the start. First pin down the questions public data can answer honestly
+(describing and comparing patterns), then decide whether supplementary
+data like weather earns its place on top.
 
-## What didn't work
+## Trial and error
 
-(In progress — a record of where I'm currently stuck)
+(In progress: a record of where I am currently stuck)
 Too early to declare failures; two decisions are being wrestled with now.
-One is the resolution of public delay data — how much can aggregate
+One is the resolution of public delay data. How much can aggregate
 statistics really say about time-of-day patterns? The other is whether to
 join weather data: it enriches the story but risks growing past the scope
-of one dissertation. This section gets its real failure stories when the
+of one dissertation. This section gets its real trial and error when the
 dissertation is done.
 
-## How it turned out
+## Outcome
 
 In progress. Target outputs: analysis code in R, a reproducible data
 pipeline, and a dashboard for exploring reliability by operator and time.
-The plan is to put that dashboard on this site's lab subdomain when it's
+The plan is to put that dashboard on this site's lab subdomain when it is
 done.

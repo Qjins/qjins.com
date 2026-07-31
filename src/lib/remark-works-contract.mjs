@@ -1,16 +1,16 @@
 /**
  * works 콘텐츠 계약 (ko/en 공통):
- * 1) 네 개의 H2 섹션이 모두 있어야 빌드가 통과한다. 특히 실패 섹션이 없으면 실패.
- * 2) 실패 섹션("뭐가 안 됐나" / "What didn't work")은 <aside class="failed">로 감싼다.
+ * 1) 네 개의 H2 섹션(배경/설계/시행착오/결과)이 모두 있어야 빌드가 통과한다.
+ * 2) 시행착오 섹션은 <aside class="failed">로 감싼다.
  */
 const CONTRACTS = {
   ko: {
-    required: ['무슨 문제였나', '어떤 접근을 골랐나', '뭐가 안 됐나', '결국 어떻게 됐나'],
-    failed: '뭐가 안 됐나',
+    required: ['배경', '설계', '시행착오', '결과'],
+    failed: '시행착오',
   },
   en: {
-    required: ['What was the problem', 'What approach I took', "What didn't work", 'How it turned out'],
-    failed: "What didn't work",
+    required: ['Background', 'Design', 'Trial and error', 'Outcome'],
+    failed: 'Trial and error',
   },
 };
 

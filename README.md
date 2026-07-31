@@ -29,15 +29,15 @@ status: wip        # live | wip | archived
 url: https://...   # 선택
 ---
 
-## 무슨 문제였나
-## 어떤 접근을 골랐나
-## 뭐가 안 됐나
-## 결국 어떻게 됐나
+## 배경
+## 설계
+## 시행착오
+## 결과
 ```
 
-**네 개의 H2 섹션은 계약입니다.** 하나라도 빠지면(특히 "뭐가 안 됐나")
-빌드가 실패합니다. 영어 문서는 `What was the problem / What approach I took /
-What didn't work / How it turned out` 네 섹션. 검증: `src/lib/remark-works-contract.mjs`.
+**네 개의 H2 섹션(배경/설계/시행착오/결과)은 계약입니다.** 하나라도 빠지면
+빌드가 실패합니다. 영어 문서는 `Background / Design / Trial and error /
+Outcome` 네 섹션. 검증: `src/lib/remark-works-contract.mjs`.
 
 ## 새 노트 추가하는 법
 

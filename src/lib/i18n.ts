@@ -3,8 +3,8 @@ export const LANGS: Lang[] = ['ko', 'en'];
 
 const dict = {
   siteTitle: {
-    ko: 'qjins — 데이터로 뭔가 만드는 1인 스튜디오',
-    en: 'qjins — a one-person studio making things with data',
+    ko: 'qjins · 데이터로 뭔가 만드는 1인 스튜디오',
+    en: 'qjins · a one-person studio making things with data',
   },
   siteDesc: {
     ko: '데이터로 뭔가 만드는 1인 스튜디오',
@@ -12,15 +12,15 @@ const dict = {
   },
   introHtml: {
     ko: '안녕하세요, 데이터로 뭔가 만드는 <strong class="name">Qjin</strong>입니다.<br />영국에서 데이터 사이언스를 공부하면서, 틈틈이 이것저것 만듭니다.',
-    en: 'Hi, I\'m <strong class="name">Qjin</strong> — I make things with data.<br />I\'m studying data science in the UK and building things on the side.',
+    en: 'Hi, I\'m <strong class="name">Qjin</strong>. I make things with data.<br />I\'m studying data science in the UK and building things on the side.',
   },
   servicesEmpty: {
-    ko: '아직 없음 — 첫 서비스가 lab에서 만들어지는 중입니다. 완성되면 여기에 걸립니다.',
-    en: 'Nothing yet — the first service is brewing in the lab. It hangs here when it ships.',
+    ko: '아직 없음. 첫 서비스가 lab에서 만들어지는 중입니다. 완성되면 여기에 걸립니다.',
+    en: 'Nothing yet. The first service is brewing in the lab. It hangs here when it ships.',
   },
   worksDesc: {
-    ko: '만든 것들. 스크린샷 갤러리가 아니라 의사결정 기록 — 뭐가 안 됐는지까지 적습니다.',
-    en: "Things I've made. Decision records, not a screenshot gallery — including what didn't work.",
+    ko: '만든 것들. 스크린샷 갤러리가 아니라 의사결정 기록. 시행착오까지 적습니다.',
+    en: "Things I've made. Decision records, not a screenshot gallery. Trial and error included.",
   },
   notesDesc: {
     ko: '짧은 기록. 삽질 로그, 라이브러리 함정, 3줄 메모.',
@@ -30,7 +30,7 @@ const dict = {
   aboutDesc: { ko: '만드는 사람 소개', en: 'About the person behind the studio' },
   aboutTeaser: {
     ko: '세상의 번거로운 일을 데이터로 따져보고, 딸깍 한 번으로 끝나게 만듭니다.',
-    en: "The world's tedious chores — examined with data, finished with one click.",
+    en: "The world's tedious chores: examined with data, finished with one click.",
   },
   aboutMore: { ko: '자세한 소개', en: 'more about me' },
   blogDesc: {
