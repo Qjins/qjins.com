@@ -64,7 +64,7 @@ const enPath = lang === 'en' ? path : switchPath(path);
     </footer>
 
     <script is:inline>
-      // 세션 한정 테마 토글. localStorage 없음 — 새로고침하면 prefers-color-scheme으로 복귀.
+      // 세션 한정 테마 토글. localStorage 없음. 새로고침하면 prefers-color-scheme으로 복귀.
       document.getElementById('theme-toggle')?.addEventListener('click', () => {
         const root = document.documentElement;
         const systemDark = matchMedia('(prefers-color-scheme: dark)').matches;
