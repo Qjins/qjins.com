@@ -11,8 +11,8 @@ const dict = {
     en: 'A one-person studio making things with data',
   },
   introHtml: {
-    ko: '안녕하세요, 데이터로 뭔가 만드는 <strong class="name">Qjin</strong>입니다.<br />영국에서 데이터 사이언스를 공부하면서, 틈틈이 이것저것 만듭니다.',
-    en: 'Hi, I\'m <strong class="name">Qjin</strong>. I make things with data.<br />I\'m studying data science in the UK and building things on the side.',
+    ko: '안녕하세요, 데이터로 뭔가 만드는 <strong class="name">Qjin</strong>입니다.<br />영국에서 데이터 사이언스를 공부하면서, 틈틈이 <a class="hl" href="/works">이것저것</a> 만듭니다.',
+    en: 'Hi, I\'m <strong class="name">Qjin</strong>. I make things with data.<br />I\'m studying data science in the UK and building <a class="hl" href="/en/works">things</a> on the side.',
   },
   servicesEmpty: {
     ko: '아직 없음. 첫 서비스가 lab에서 만들어지는 중입니다. 완성되면 여기에 걸립니다.',
@@ -29,8 +29,8 @@ const dict = {
   nowDesc: { ko: '요즘 하는 일', en: 'What I am up to now' },
   aboutDesc: { ko: '만드는 사람 소개', en: 'About the person behind the studio' },
   aboutTeaser: {
-    ko: '세상의 번거로운 일을 데이터로 따져보고, 딸깍 한 번으로 끝나게 만듭니다.',
-    en: "The world's tedious chores: examined with data, finished with one click.",
+    ko: '세상의 번거로운 일을 데이터로 따져보고, <em class="tick">딸깍 한 번</em>으로 끝나게 만듭니다.',
+    en: "The world's tedious chores: examined with data, finished with <em class=\"tick\">one click</em>.",
   },
   aboutMore: { ko: '자세한 소개', en: 'more about me' },
   blogDesc: {
