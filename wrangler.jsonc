@@ -5,6 +5,7 @@
   "name": "qjins",
   "compatibility_date": "2026-07-01",
   "compatibility_flags": ["nodejs_compat"],
+  "vars": { "PUBLIC_KEYSTATIC_GITHUB_APP_SLUG": "qjins-keystatic" },
   "workers_dev": false,
   "preview_urls": false,
   "main": "dist/_worker.js/index.js",
